@@ -13,7 +13,11 @@
             .bio {
                 width: 317px;
                 background: #1A1B21;
-                height: 100%    ;
+                height: 100%;
+                a {
+                    text-decoration: none;
+                    color: black;
+                }
                 .name {
                     padding: 15px;
                     font-size: 30px;
@@ -123,6 +127,10 @@
                     .interests_info {
                         color:black;
                     }
+                }
+                a {
+                    text-decoration: none;
+                    color: white;
                 }
             }
             .networks {

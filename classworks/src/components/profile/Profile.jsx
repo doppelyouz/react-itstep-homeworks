@@ -9,7 +9,7 @@ import github from './github.png';
 import linkedinImg from './linkedin.png';
 
 const Profile = (props) => {
-  const {white, linkedin, name, position, website, about, interests} = props;
+  const {white, linkedin, name, position, website, about, interests, instaLink, facebookLink, twitterLink, githubLink, linkedinLink, emailLink} = props;
 
   let classesBio = "bio ";
   let classesNetworks = "networks ";
@@ -31,8 +31,8 @@ const Profile = (props) => {
                     <div className="position">{position}</div>
                     <div className="website">{website}</div>
                     <div className="social_medias">
-                        <button type='button' className='email'>Email</button>
-                        {linkedin ? <button type='button' className='linkedin'>Linkedin</button> : null}
+                        <button type='button' className='email'><a href={emailLink}>Email</a></button>
+                        {linkedin ? <button type='button' className='linkedin'><a href={linkedinLink}>Linkedin</a></button> : null}
                     </div>
                     <div className="about">
                         <div className="about_title">About</div>
@@ -48,11 +48,11 @@ const Profile = (props) => {
                     </div>
                 </div>
                 <div className={classesNetworks}>
-                    <button type='button'><img src={twitter} alt="twitter" /></button>
-                    <button type='button'><img src={github} alt="github" /></button>
-                    <button type='button'><img src={insta} alt="instagram" /></button>
-                    <button type='button'><img src={facebook} alt="facebook" /></button>
-                    {linkedin ? <button type='button'><img src={linkedinImg} alt="linkedin" /></button>: null}
+                    <button type='button'><a href={twitterLink}><img src={twitter} alt="twitter" /></a></button>
+                    <button type='button'><a href={githubLink}><img src={github} alt="github" /></a></button>
+                    <button type='button'><a href={instaLink}><img src={insta} alt="instagram" /></a></button>
+                    <button type='button'><a href={facebookLink}><img src={facebook} alt="facebook" /></a></button>
+                    {linkedin ? <button type='button'><a href={linkedinLink}><img src={linkedinImg} alt="linkedin" /></a></button>: null}
                 </div>
             </div>
         </div>

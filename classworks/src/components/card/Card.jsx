@@ -21,7 +21,15 @@ let profiles = [
     about,
     interests,
     linkedin: true,
-    white: true
+    white: true,
+    networks: {
+      instaLink: "https://www.instagram.com/",
+      emailLink: "https://www.google.com/intl/ru/gmail/about/",
+      twitterLink: "https://twitter.com/",
+      facebookLink: "https://ru-ru.facebook.com/",
+      linkedinLink: "https://ru.linkedin.com/",
+      githubLink: "https://github.com/doppelyouz"
+    }
   },
   {
     id: 102,
@@ -29,7 +37,14 @@ let profiles = [
     position: "22222222222",
     website: "2222@mail.ru",
     about,
-    interests
+    interests,
+    networks: {
+      instaLink: "https://www.instagram.com/",
+      emailLink: "https://www.google.com/intl/ru/gmail/about/",
+      twitterLink: "https://twitter.com/",
+      facebookLink: "https://ru-ru.facebook.com/",
+      githubLink: "https://github.com/doppelyouz"
+    }
   },
   {
     id: 103,
@@ -39,7 +54,15 @@ let profiles = [
     about,
     interests,
     linkedin: true,
-    white: true
+    white: true,
+    networks: {
+      instaLink: "https://www.instagram.com/",
+      emailLink: "https://www.google.com/intl/ru/gmail/about/",
+      twitterLink: "https://twitter.com/",
+      facebookLink: "https://ru-ru.facebook.com/",
+      linkedinLink: "https://ru.linkedin.com/",
+      githubLink: "https://github.com/doppelyouz"
+    }
   },
   {
     id: 104,
@@ -48,7 +71,15 @@ let profiles = [
     website: "44444@mail.ru",
     about,
     interests,
-    linkedin: true
+    linkedin: true,
+    networks: {
+      instaLink: "https://www.instagram.com/",
+      emailLink: "https://www.google.com/intl/ru/gmail/about/",
+      twitterLink: "https://twitter.com/",
+      facebookLink: "https://ru-ru.facebook.com/",
+      linkedinLink: "https://ru.linkedin.com/",
+      githubLink: "https://github.com/doppelyouz"
+    }
   },
 ]
 
@@ -66,6 +97,12 @@ const Card = () => {
                       interests={p.interests} 
                       linkedin={p.linkedin}
                       white={p.white}
+                      instaLink={p.networks.instaLink}
+                      emailLink={p.networks.emailLink}
+                      twitterLink={p.networks.twitterLink}
+                      facebookLink={p.networks.facebookLink}
+                      linkedinLink={p.networks.linkedinLink}
+                      githubLink={p.networks.githubLink}
                     />
         })
       }
