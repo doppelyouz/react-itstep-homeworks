@@ -1,0 +1,151 @@
+.profile {
+    width: 317px;
+    border-radius: 10px;
+    .profile_container {
+        .profile_info {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            .profile_image {
+                width: 317px;
+                height: 317px;
+            }
+            .bio {
+                width: 317px;
+                background: #1A1B21;
+                height: 100%    ;
+                .name {
+                    padding: 15px;
+                    font-size: 30px;
+                    color:white;
+                }
+                .position {
+                    font-size: 15px;
+                    font-weight: 400;
+                    line-height: 15px;
+                    letter-spacing: 0em;
+                    color: #F3BF99;
+                }
+                .website {
+                    font-size: 13px;
+                    font-weight: 400;
+                    line-height: 15px;
+                    letter-spacing: 0em;
+                    padding: 5px;
+                    color:white;
+                }
+                .social_medias {
+                    padding: 0px 25px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 15px 0px;
+                    .email {
+                        width: 100%;
+                        font-size: 15px;
+                        border-radius: 5px;
+                        background-color: white;
+                        color: black;
+                        text-align: center;
+                        padding: 5px 20px;
+                        margin: 0 5px;
+                    }
+                    .linkedin {
+                        width: 100%;
+                        font-size: 15px;
+                        border-radius: 5px;
+                        background: #5093E2;
+                        color: white;
+                        text-align: center;
+                        padding: 5px 20px;
+                        margin: 0 5px;
+                    }
+                }
+                .about {
+                    margin: 0 auto;
+                    width: 80%;
+                    padding-bottom: 15px;
+                    .about_title {
+                        padding: 5px 0px;
+                        font-size: 25px;
+                        color:white;
+                        text-align: left;
+                    }
+                    .about_info {
+                        font-size: 15px;
+                        color:white;
+                        text-align: left;
+                    }
+                }
+                .interests {
+                    margin: 0 auto;
+                    width: 80%;
+                    padding-bottom: 15px;
+                    .interests_title {
+                        padding: 5px 0px;
+                        font-size: 25px;
+                        color:white;
+                        text-align: left;
+                    }
+                    .interests_info {
+                        font-size: 15px;
+                        color:white;
+                        text-align: left;
+                    }
+                }
+            }
+            .bio.white {
+                background: #F5F5F5;
+                .name {
+                    color:black;
+                }
+                .website {
+                    color:black;
+                }
+                .social_medias {
+                    .email {
+                        background-color: black;
+                        color: white;
+                    }
+                }
+                .about {
+                    .about_title {
+                        color:black;
+                    }
+                    .about_info {
+                        color:black;
+                    }
+                }
+                .interests {
+                    .interests_title {
+                        color:black;
+                    }
+                    .interests_info {
+                        color:black;
+                    }
+                }
+            }
+            .networks {
+                width: 317px;
+                background: #161619;
+                display: flex;
+                justify-content: center;
+                align-items:center;
+                padding: 15px 0px;
+                button {
+                    border-radius: 3px;
+                    margin: 0px 15px;
+                    background-color: #1A1B21;
+                }
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+            .networks.white {
+                background: #D5D4D8;
+                button {
+                    background: white;
+                }
+            }
+        }
+    }
+}
