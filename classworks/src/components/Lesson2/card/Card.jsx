@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 
 import Profile from '../profile/Profile';
 import './card.scss';
@@ -12,7 +13,7 @@ let interests = `Food expert. Music scholar. Reader.
                   Internet fanatic. Bacon buff. Entrepreneur. 
                   Travel geek. Pop culture ninja. Coffee fanatic.`;
 
-let profiles = [
+let profilesArray = [
   {
     id: 101,
     name: "11111 111111",
@@ -84,11 +85,15 @@ let profiles = [
 ]
 
 const Card = () => {
+  
+  const [profiles, setProfiles] = useState(profilesArray);
+  const [active, setActive] = useState(null);
+
   return (
     <div className="profiles">
       {
         profiles.map(p => {
-            return <Profile 
+            return <Profile
                       key={p.id}
                       name={p.name} 
                       position={p.position} 
@@ -103,6 +108,10 @@ const Card = () => {
                       facebookLink={p.networks.facebookLink}
                       linkedinLink={p.networks.linkedinLink}
                       githubLink={p.networks.githubLink}
+                      active={active === p.id ? true : false}
+                      onClick={() => {
+                          setActive(p.id)
+                      }}
                     />
         })
       }

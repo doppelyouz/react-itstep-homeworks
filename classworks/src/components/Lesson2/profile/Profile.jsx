@@ -9,18 +9,22 @@ import github from './github.png';
 import linkedinImg from './linkedin.png';
 
 const Profile = (props) => {
-  const {white, linkedin, name, position, website, about, interests, instaLink, facebookLink, twitterLink, githubLink, linkedinLink, emailLink} = props;
+  const {white, linkedin, name, position, website, about, interests, instaLink, facebookLink, twitterLink, githubLink, linkedinLink, emailLink, active, onClick} = props;
 
   let classesBio = "bio ";
   let classesNetworks = "networks ";
+  let classesProfile = "profile ";
 
   if(white) {
     classesBio += "white";
     classesNetworks += "white";
   }
-
+  if(active) {
+    classesProfile += "active";
+  }
+  
   return (
-    <div className="profile">
+    <div className={classesProfile} onClick={onClick}>
         <div className="profile_container">
             <div className="profile_info">
                 <div className="profile_image">
@@ -56,7 +60,7 @@ const Profile = (props) => {
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
   )
 }
 

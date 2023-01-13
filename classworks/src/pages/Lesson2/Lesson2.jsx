@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, Header } from '../../components';
+import { Card, Header } from '../../components/Lesson2';
 import '../../styles/style.scss';
 
 const Lesson2 = () => {

@@ -1,11 +1,13 @@
 .profile {
     width: 317px;
     border-radius: 10px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    margin: 20px;
     .profile_container {
         .profile_info {
             width: 100%;
             text-align: center;
-            padding: 20px;
             .profile_image {
                 width: 317px;
                 height: 317px;
@@ -156,4 +158,16 @@
             }
         }
     }
+}
+.profile.active {
+    box-shadow:
+        1px 1px #4682B4,
+        2px 2px #4682B4,
+        3px 3px #4682B4,
+        4px 4px #4682B4,
+        5px 5px #4682B4,
+        6px 6px #4682B4,
+        7px 7px #4682B4;
+    -webkit-transform: translateX(-7px);
+    transform: translateX(-7px);
 }
