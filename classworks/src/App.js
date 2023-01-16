@@ -1,10 +1,12 @@
 import React from "react";
-import Lesson2 from "./pages/Lesson2";
+import Lesson4 from "./pages/Lesson4";
+
+import './styles/style.scss'
 
 function App() {
   return (
     <div className="pages">
-        <Lesson2 />
+        <Lesson4 />
     </div>
   );
 }
