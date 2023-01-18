@@ -7,7 +7,8 @@ const Lesson4 = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    isHuman: false
+    isHuman: false,
+    number: null
   });
 
   console.log('formData: ', formData);
@@ -25,7 +26,7 @@ const Lesson4 = () => {
 
   return (
     <div className={s.form}>
-        <label htmlFor="name">
+        <label>
             <input 
                 type="text" 
                 name="name"
@@ -33,7 +34,7 @@ const Lesson4 = () => {
                 onChange={inputChangeHandler}
             />
         </label>
-        <label htmlFor="email">
+        <label>
             <input 
                 type="email" 
                 name="email"
@@ -41,13 +42,25 @@ const Lesson4 = () => {
                 onChange={inputChangeHandler}
             />
         </label>
-        <label htmlFor="email">
+        <label>
             <input 
                 type="checkbox" 
                 name="isHuman"
                 value={formData.isHuman}
                 onChange={inputChangeHandler}
             />
+        </label>
+        <label>
+            <select
+                value={formData.value}
+                name="number"
+                onChange={inputChangeHandler}
+            >
+                <option value={1}>11111</option>
+                <option value={2}>22222</option>
+                <option value={3}>33333</option>
+                <option value={4}>44444</option>
+            </select>
         </label>
     </div>
   );
