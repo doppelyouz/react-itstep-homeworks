@@ -1,12 +1,12 @@
 import React from "react";
 import './styles/index.css';
 
-import HomeworkUsers from "./pages/homeworkUseEffectFetchUsers";
+import HomeWorkReg from "./pages/homeworkReg/HomeWorkReg";
 
 function App() {
   return (
     <div className="App">
-      <HomeworkUsers />
+      <HomeWorkReg />
     </div>
   );
 }
