@@ -1,12 +1,15 @@
 import React from "react";
 import './styles/index.css';
 
-import HomeWorkReg from "./pages/homeworkReg/HomeWorkReg";
+import Router from "./Router";
+import UserContextProvider from "./components/UserContextProvider";
 
 function App() {
   return (
     <div className="App">
-      <HomeWorkReg />
+      <UserContextProvider>
+        <Router />
+      </UserContextProvider>
     </div>
   );
 }

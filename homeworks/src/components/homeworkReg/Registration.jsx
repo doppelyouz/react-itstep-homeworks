@@ -5,14 +5,17 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
+import UserContext from '../../context';
+
 import "./reg.scss";
+import { users } from '../../data/users';
 
 import star from "./star.png";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { json } from "react-router-dom";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       className="reg"
@@ -45,13 +48,11 @@ function a11yProps(index) {
 }
 
 const Registration = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [value, setValue] = React.useState(0);
-  
-  const [signUp, setSignUp] = useState({
-    email: "",
-    password: ""
-  });
-  
+  const {setUser, signIn} = useContext(UserContext);
+
   const [register, setRegister] = useState({
     email: "",
     password: "",
@@ -59,20 +60,15 @@ const Registration = () => {
     accept: false
   });
 
-  const signUpInputChangeHandler = (e) => {
-    const {value, name} = e.target;
-
-    setSignUp((data) => {
-        return {
-            ...data,
-            [name]: value
-        }
-    })
+  const emailInputChangeHandler = (e) => {
+    setEmail(e.target.value)
+  };
+  const passwordInputChangeHandler = (e) => {
+    setPassword(e.target.value)
   };
 
   const registerInputChangeHandler = (e) => {
     const {value, name, type, checked} = e.target;
-
     setRegister((data) => {
         return {
             ...data,
@@ -83,48 +79,39 @@ const Registration = () => {
 
   const submitSignUp = (e) => {
     e.preventDefault();
-    if(signUp.email && signUp.password) {
-      
-      setSignUp({
-        email: "",
-        password: ""
+    if(email && password) {
+      const profile = users.find(u => {
+        if((u.email === email) && (u.password === password)) {
+          return u;
+        }
       })
-      console.log(signUp);
+      if(profile) {
+        localStorage.setItem('User', JSON.stringify(profile));
+        signIn(profile);
+      } else {
+        setUser(null)
+      }
     }
   };
 
   const submitRegister = (e) => {
     e.preventDefault();
-    
     if((register.email && register.password && register.accept && register.confirm) 
         && (register.password === register.confirm)) {
-          fetch('https://jsonplaceholder.typicode.com/posts', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(register),
+          setRegister({
+            email: "",
+            password: "",
+            confirm: "",
+            accept: false
           })
-            .then((response) => response.json())
-            .then((data) => {
-              console.log('Success:', data);
-            })
-            .catch((error) => {
-              console.error('Error:', error);
-          });
-      setRegister({
-        email: "",
-        password: "",
-        confirm: "",
-        accept: false
-      })
-      console.log(register);
+          console.log(register);
     }
   };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   return (
     <div className="tabs">
       <img src={star} alt="star" className="star" />
@@ -141,14 +128,14 @@ const Registration = () => {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <form className="form">
+          <form className="form" name="login">
               <label>
                   <div className="title">Email address</div>
                   <input 
                       type="email" 
                       name="email"
-                      value={signUp.email}
-                      onChange={signUpInputChangeHandler}
+                      value={email}
+                      onChange={emailInputChangeHandler}
                       placeholder="Your email"
                       className="inputs"
                   />
@@ -158,60 +145,60 @@ const Registration = () => {
                   <input 
                       type="password" 
                       name="password"
-                      value={signUp.password}
-                      onChange={signUpInputChangeHandler}
+                      value={password}
+                      onChange={passwordInputChangeHandler}
                       placeholder="Password"
                       className="inputs"
                   />
               </label>
-              <button className="submitButton" type="submit" onClick={submitSignUp}>Sign up</button>
+              <button className="submitButton" type="submit" onClick={submitSignUp}>Sign in</button>
           </form>
         </TabPanel>
         <TabPanel value={value} index={1}>
-        <form className="form">
-              <label>
-                  <div className="title">Email address</div>
+          <form className="form">
+                <label>
+                    <div className="title">Email address</div>
+                    <input 
+                        type="email" 
+                        name="email"
+                        value={register.email}
+                        onChange={registerInputChangeHandler}
+                        placeholder="Your email"
+                        className="inputs"
+                    />
+                </label>
+                <label>
+                    <div className="title">Password</div>
+                    <input 
+                        type="password" 
+                        name="password"
+                        value={register.password}
+                        onChange={registerInputChangeHandler}
+                        placeholder="Password"
+                        className="inputs"
+                    />
+                </label>
+                <label>
+                    <div className="title">Confirm</div>
+                    <input 
+                        type="password" 
+                        name="confirm"
+                        value={register.confirm}
+                        onChange={registerInputChangeHandler}
+                        placeholder="Confirm"
+                        className="inputs"
+                    />
+                </label>
+                <label className="accept">
                   <input 
-                      type="email" 
-                      name="email"
-                      value={register.email}
+                      type="checkbox" 
+                      name="accept"
+                      value={register.accept}
                       onChange={registerInputChangeHandler}
-                      placeholder="Your email"
-                      className="inputs"
+                      className="accept"
                   />
+                  I accept the terms and privacy policy
               </label>
-              <label>
-                  <div className="title">Password</div>
-                  <input 
-                      type="password" 
-                      name="password"
-                      value={register.password}
-                      onChange={registerInputChangeHandler}
-                      placeholder="Password"
-                      className="inputs"
-                  />
-              </label>
-              <label>
-                  <div className="title">Confirm</div>
-                  <input 
-                      type="password" 
-                      name="confirm"
-                      value={register.confirm}
-                      onChange={registerInputChangeHandler}
-                      placeholder="Confirm"
-                      className="inputs"
-                  />
-              </label>
-              <label className="accept">
-                <input 
-                    type="checkbox" 
-                    name="accept"
-                    value={register.accept}
-                    onChange={registerInputChangeHandler}
-                    className="accept"
-                />
-                I accept the terms and privacy policy
-            </label>
               <button className="submitButton register" type="submit" onClick={submitRegister}>Register</button>
           </form>
         </TabPanel>

@@ -1,0 +1,26 @@
+.user {
+    
+    position: fixed; 
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    background-color: white;
+    border-radius: 10%;
+    padding: 70px;
+    box-sizing: border-box;
+    .email {
+        font-weight: 700;
+        font-size: 25px;
+        margin-bottom: 25px;
+    }
+    .out {
+        padding: 10px 25px;
+        font-size: 20px;
+        background-color: #363755;
+        color:white;
+        border-radius:5px;
+        border:none;
+    }
+}
