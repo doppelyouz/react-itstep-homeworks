@@ -4,6 +4,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { v4 as uuidv4 } from 'uuid';
 
 import UserContext from '../../context';
 
@@ -100,6 +101,7 @@ const Registration = () => {
     if((register.email && register.password && register.accept && register.confirm) 
         && (register.password === register.confirm)) {
           users.push({
+            id: uuidv4(),
             email: register.email,
             password: register.password
           })

@@ -15,10 +15,10 @@ const Router = () => {
     <BrowserRouter>
         <Routes>
             {
-            user ? 
+              user ? 
                 <>
-                  <Route path="/" element={<ProfilePage />} /> 
                   <Route path="/settings" element={<SettingsPage />} />
+                  <Route path="*" element={<ProfilePage />} /> 
                 </>
               : 
                 <Route path="*" element={<RegistrationPage />} />
