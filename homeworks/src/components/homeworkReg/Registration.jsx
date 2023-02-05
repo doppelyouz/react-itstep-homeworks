@@ -8,11 +8,9 @@ import Box from "@mui/material/Box";
 import UserContext from '../../context';
 
 import "./reg.scss";
-import { users } from '../../data/users';
 
 import star from "./star.png";
 import { useState, useContext } from "react";
-import { json } from "react-router-dom";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -52,6 +50,9 @@ const Registration = () => {
   const [password, setPassword] = useState("");
   const [value, setValue] = React.useState(0);
   const {setUser, signIn} = useContext(UserContext);
+
+  const localData = JSON.parse(localStorage.getItem("users") || "[]");
+  const [users, setUsers] = useState(localData);
 
   const [register, setRegister] = useState({
     email: "",
@@ -98,6 +99,11 @@ const Registration = () => {
     e.preventDefault();
     if((register.email && register.password && register.accept && register.confirm) 
         && (register.password === register.confirm)) {
+          users.push({
+            email: register.email,
+            password: register.password
+          })
+          localStorage.setItem('users', JSON.stringify(users));
           setRegister({
             email: "",
             password: "",

@@ -13,10 +13,38 @@ const UserContextProvider = ({children}) => {
     const signOut = useCallback(() => {
         setUser(null)
     },[setUser])
+    
+    const changeEmail = useCallback((email) => {
+        setUser({
+            ...user,
+            email
+        })
+    },[setUser])
+    
+    const changeAvatar = useCallback((avatar) => {
+        setUser({
+            ...user,
+            avatar
+        })
+    },[setUser])
+    
+    const changeName = useCallback((name) => {
+        setUser({
+            ...user,
+            name
+        })
+    },[setUser])
+
+    const changeDescription = useCallback((description) => {
+        setUser({
+            ...user,
+            description
+        })
+    },[setUser])
 
     const providerValues = useMemo(() => ({
-        user, setUser, signIn, signOut
-    }), [user, setUser, signIn, signOut])
+        user, setUser, signIn, signOut, changeEmail, changeAvatar, changeName, changeDescription
+    }), [user, setUser, signIn, signOut, changeEmail, changeAvatar, changeName, changeDescription])
 
   return (
     <UserContext.Provider value={providerValues}>
