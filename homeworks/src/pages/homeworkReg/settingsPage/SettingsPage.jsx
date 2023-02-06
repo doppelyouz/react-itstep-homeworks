@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { Link } from 'react-router-dom';
 
 import './settingsPage.scss';
 import UserContext from '../../../context';
@@ -29,19 +30,23 @@ const SettingsPage = () => {
   return (
     <div className='settings'>
       <div className="settings__form">
+        <div className="back"><Link to="/">Back</Link></div>
         <div className="settings__title">Settings</div>
           <form className="form">
                 <label>
                     <div className="form__title">Email address</div>
                     <input 
-                        type="email" 
+                        type="text" 
                         name="email"
                         value={newEmail}
                         onChange={emailInputChangeHandler}
                         className="inputs"
                     />
                 </label>
-                <button type="submit" onClick={changeEmail} className="btn form__save">Save</button>
+                <button  
+                  type="submit" 
+                  onClick={(e) => {e.preventDefault(); changeEmail(newEmail)}}
+                  className="btn">Save</button>
           </form>
           <form className="form">
                 <label>
@@ -54,7 +59,11 @@ const SettingsPage = () => {
                         className="inputs"
                     />
                 </label>
-                <button type="submit" onClick={changeAvatar} className="btn form__save">Save</button>
+                <button 
+                  type="submit" 
+                  onClick={(e) => {e.preventDefault(); changeAvatar(newAvatar)}}
+                  className="btn"
+                  >Save</button>
           </form>
           <form className="form">
                 <label>
@@ -70,7 +79,7 @@ const SettingsPage = () => {
                 <button 
                   type="submit" 
                   onClick={(e) => {e.preventDefault(); changeName(newName)}}
-                  className="btn form__save"
+                  className="btn"
                 >Save</button>
           </form>
           <form className="form">
@@ -83,7 +92,10 @@ const SettingsPage = () => {
                         className="inputs"
                     />
                 </label>
-                <button type="submit" onClick={changeDescription} className="btn form__save">Save</button>
+                <button  
+                  type="submit" 
+                  onClick={(e) => {e.preventDefault(); changeDescription(newDesc)}}
+                  className="btn">Save</button>
                 <button onClick={signOut} className="btn out">Sign out</button>
           </form>
       </div>

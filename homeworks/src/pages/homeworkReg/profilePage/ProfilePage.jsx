@@ -23,7 +23,7 @@ const ProfilePage = () => {
             </div>
           </div>
           <div className="profile__description">
-            <div className="profile__description-text">{user.description ? user.description : <h3>you don't have a description</h3>}</div>
+            <div className="profile__description-text word-break">{user.description ? user.description : <h3>you don't have a description</h3>}</div>
           </div>
         </div>
       </div>

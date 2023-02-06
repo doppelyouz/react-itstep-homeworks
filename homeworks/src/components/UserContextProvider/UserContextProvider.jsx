@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useMemo} from 'react';
+import React, {useState, useCallback, useMemo, useEffect} from 'react';
 
 import UserContext from '../../context';
 
@@ -17,42 +17,55 @@ const UserContextProvider = ({children}) => {
     },[setUser])
     
     const changeEmail = useCallback((email) => {
-        setUser({
-            ...user,
-            email
-        })
-        localStorage.setItem("User", JSON.stringify(user));
-    },[setUser])
-    
-    const changeAvatar = useCallback((avatar) => {
-        setUser({
-            ...user,
-            avatar
-        })
-        localStorage.setItem("User", JSON.stringify(user));
-    },[setUser])
-    
-    const changeName = useCallback ((name) => {
-        setUser((prev) => ({ ...prev, name}))
-        console.log(user);
+        const newData = {...user, email}
+        setUser(newData)
         const newUsers = users.map((u) => {
             if(u.id === user.id) {
-                return user;
-            } else {
-                return u;
+                return newData;
             }
+            return u;
         })
         localStorage.setItem("users", JSON.stringify(newUsers));
-        localStorage.setItem("User", JSON.stringify(user));
-    },[user])
+        localStorage.setItem("User", JSON.stringify(newData));
+    },[user, setUser, users])
+    
+    const changeAvatar = useCallback((avatar) => {
+        const newData = {...user, avatar}
+        setUser(newData)
+        const newUsers = users.map((u) => {
+            if(u.id === user.id) {
+                return newData;
+            }
+            return u;
+        })
+        localStorage.setItem("users", JSON.stringify(newUsers));
+        localStorage.setItem("User", JSON.stringify(newData));
+    },[user, setUser, users])
+    const changeName = useCallback ((name) => {
+        const newData = {...user, name}
+        setUser(newData)
+        const newUsers = users.map((u) => {
+            if(u.id === user.id) {
+                return newData;
+            }
+            return u;
+        })
+        localStorage.setItem("users", JSON.stringify(newUsers));
+        localStorage.setItem("User", JSON.stringify(newData));
+    },[user, setUser, users])
 
     const changeDescription = useCallback((description) => {
-        setUser({
-            ...user,
-            description
+        const newData = {...user, description}
+        setUser(newData)
+        const newUsers = users.map((u) => {
+            if(u.id === user.id) {
+                return newData;
+            }
+            return u;
         })
-        localStorage.setItem("User", JSON.stringify(user));
-    },[setUser])
+        localStorage.setItem("users", JSON.stringify(newUsers));
+        localStorage.setItem("User", JSON.stringify(newData));
+    },[user, setUser, users])
 
     const providerValues = useMemo(() => ({
         user, setUser, signIn, signOut, changeEmail, changeAvatar, changeName, changeDescription

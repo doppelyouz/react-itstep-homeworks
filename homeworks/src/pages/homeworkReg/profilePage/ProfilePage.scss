@@ -72,6 +72,9 @@
                 font-size: 20px;
                 line-height: 125%;
             }
+            .profile__description-text.word-break {
+                word-break: break-all;
+            }
         }
     }
     a {

@@ -96,8 +96,7 @@ const Registration = () => {
     }
   };
 
-  const submitRegister = (e) => {
-    e.preventDefault();
+  const submitRegister = () => {
     if((register.email && register.password && register.accept && register.confirm) 
         && (register.password === register.confirm)) {
           users.push({
@@ -140,7 +139,7 @@ const Registration = () => {
               <label>
                   <div className="title">Email address</div>
                   <input 
-                      type="email" 
+                      type="text" 
                       name="email"
                       value={email}
                       onChange={emailInputChangeHandler}

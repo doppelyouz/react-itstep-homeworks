@@ -12,6 +12,16 @@
         border-radius: 30px;
         padding-top: 40px;
         padding-bottom: 40px;
+        position: relative;
+        .back {
+            position: absolute;
+            top: 3%;
+            right: 6%;
+            border-radius: 10px;
+            padding: 10px;
+            color:white;
+            background: #363755;
+        }
         .settings__title {
             font-weight: 500;
             font-size: 24px;
@@ -39,13 +49,14 @@
             border-radius: 10px;
             padding: 10px;
             color:white;
-        }
-        .btn.form__save {
             background: #363755;
         }
         .btn.out {
             margin-top: 5px;
             background: red;
         }
+    }
+    a {
+        color: white;
     }
 }
