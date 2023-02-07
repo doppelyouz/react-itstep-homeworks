@@ -6,6 +6,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { v4 as uuidv4 } from 'uuid';
 
+import { useSnackbar } from 'notistack';
+
 import UserContext from '../../context';
 
 import "./reg.scss";
@@ -47,6 +49,9 @@ function a11yProps(index) {
 }
 
 const Registration = () => {
+
+  const { enqueueSnackbar } = useSnackbar()
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [value, setValue] = React.useState(0);
@@ -55,11 +60,12 @@ const Registration = () => {
   const localData = JSON.parse(localStorage.getItem("users") || "[]");
   const [users, setUsers] = useState(localData);
 
+  const [checked, setChecked] = useState(false);
+
   const [register, setRegister] = useState({
     email: "",
     password: "",
-    confirm: "",
-    accept: false
+    confirm: ""
   });
 
   const emailInputChangeHandler = (e) => {
@@ -70,14 +76,15 @@ const Registration = () => {
   };
 
   const registerInputChangeHandler = (e) => {
-    const {value, name, type, checked} = e.target;
+    const {value, name} = e.target;
     setRegister((data) => {
         return {
             ...data,
-            [name]: type === "checkbox" ? checked : value
+            [name]: value
         }
     })
   };
+  console.log(register);
 
   const submitSignUp = (e) => {
     e.preventDefault();
@@ -89,28 +96,32 @@ const Registration = () => {
       })
       if(profile) {
         localStorage.setItem('User', JSON.stringify(profile));
+        enqueueSnackbar("You are logged in", { variant: "success" });
         signIn(profile);
       } else {
+        enqueueSnackbar("This user does not exist", { variant: "error" });
         setUser(null)
       }
     }
   };
 
-  const submitRegister = () => {
-    if((register.email && register.password && register.accept && register.confirm) 
+  const submitRegister = (e) => {
+    e.preventDefault();
+    if((register.email && register.password && checked && register.confirm) 
         && (register.password === register.confirm)) {
           users.push({
             id: uuidv4(),
             email: register.email,
             password: register.password
           })
+          enqueueSnackbar("You registered", { variant: "success" });
           localStorage.setItem('users', JSON.stringify(users));
           setRegister({
             email: "",
             password: "",
-            confirm: "",
-            accept: false
+            confirm: ""
           })
+          setChecked(!checked);
           console.log(register);
     }
   };
@@ -200,9 +211,10 @@ const Registration = () => {
                   <input 
                       type="checkbox" 
                       name="accept"
-                      value={register.accept}
-                      onChange={registerInputChangeHandler}
+                      value={checked}
+                      onChange={() => setChecked(!checked)}
                       className="accept"
+                      checked={checked}
                   />
                   I accept the terms and privacy policy
               </label>

@@ -1,8 +1,12 @@
-import React, {useState, useCallback, useMemo, useEffect} from 'react';
+import React, {useState, useCallback, useMemo} from 'react';
 
 import UserContext from '../../context';
 
+import { useSnackbar } from 'notistack';
+
 const UserContextProvider = ({children}) => {
+    const { enqueueSnackbar } = useSnackbar()
+
     const localDataUsers = JSON.parse(localStorage.getItem("users") || "[]");
     const localData = JSON.parse(localStorage.getItem("User") || null);
     const [users, setUsers] = useState(localDataUsers);
@@ -25,6 +29,7 @@ const UserContextProvider = ({children}) => {
             }
             return u;
         })
+        enqueueSnackbar("You changed your email", { variant: "success" });
         localStorage.setItem("users", JSON.stringify(newUsers));
         localStorage.setItem("User", JSON.stringify(newData));
     },[user, setUser, users])
@@ -38,6 +43,7 @@ const UserContextProvider = ({children}) => {
             }
             return u;
         })
+        enqueueSnackbar("You changed your avatar", { variant: "success" });
         localStorage.setItem("users", JSON.stringify(newUsers));
         localStorage.setItem("User", JSON.stringify(newData));
     },[user, setUser, users])
@@ -50,6 +56,7 @@ const UserContextProvider = ({children}) => {
             }
             return u;
         })
+        enqueueSnackbar("You changed your name", { variant: "success" });
         localStorage.setItem("users", JSON.stringify(newUsers));
         localStorage.setItem("User", JSON.stringify(newData));
     },[user, setUser, users])
@@ -63,6 +70,7 @@ const UserContextProvider = ({children}) => {
             }
             return u;
         })
+        enqueueSnackbar("You changed your description", { variant: "success" });
         localStorage.setItem("users", JSON.stringify(newUsers));
         localStorage.setItem("User", JSON.stringify(newData));
     },[user, setUser, users])
