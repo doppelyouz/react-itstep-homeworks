@@ -84,7 +84,6 @@ const Registration = () => {
         }
     })
   };
-  console.log(register);
 
   const submitSignUp = (e) => {
     e.preventDefault();
@@ -122,7 +121,6 @@ const Registration = () => {
             confirm: ""
           })
           setChecked(!checked);
-          console.log(register);
     }
   };
 
