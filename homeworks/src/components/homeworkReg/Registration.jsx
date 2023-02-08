@@ -6,14 +6,16 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { v4 as uuidv4 } from 'uuid';
 
+import { useState } from "react";
+import {useDispatch} from 'react-redux';
+
+import {signIn, signOut} from '../../store/userSlice';
+
 import { useSnackbar } from 'notistack';
 
-import UserContext from '../../context';
-
-import "./reg.scss";
+import "./reg.scss"; 
 
 import star from "./star.png";
-import { useState, useContext } from "react";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,17 +51,13 @@ function a11yProps(index) {
 }
 
 const Registration = () => {
-
   const { enqueueSnackbar } = useSnackbar()
+
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [value, setValue] = React.useState(0);
-  const {setUser, signIn} = useContext(UserContext);
-
-  const localData = JSON.parse(localStorage.getItem("users") || "[]");
-  const [users, setUsers] = useState(localData);
-
   const [checked, setChecked] = useState(false);
 
   const [register, setRegister] = useState({
@@ -88,41 +86,29 @@ const Registration = () => {
   const submitSignUp = (e) => {
     e.preventDefault();
     if(email && password) {
-      const profile = users.find(u => {
-        if((u.email === email) && (u.password === password)) {
-          return u;
-        }
-      })
-      if(profile) {
-        localStorage.setItem('User', JSON.stringify(profile));
-        enqueueSnackbar("You are logged in", { variant: "success" });
-        signIn(profile);
-      } else {
-        enqueueSnackbar("This user does not exist", { variant: "error" });
-        setUser(null)
-      }
+      dispatch()
     }
   };
 
-  const submitRegister = (e) => {
-    e.preventDefault();
-    if((register.email && register.password && checked && register.confirm) 
-        && (register.password === register.confirm)) {
-          users.push({
-            id: uuidv4(),
-            email: register.email,
-            password: register.password
-          })
-          enqueueSnackbar("You registered", { variant: "success" });
-          localStorage.setItem('users', JSON.stringify(users));
-          setRegister({
-            email: "",
-            password: "",
-            confirm: ""
-          })
-          setChecked(!checked);
-    }
-  };
+  // const submitRegister = (e) => {
+  //   e.preventDefault();
+  //   if((register.email && register.password && checked && register.confirm) 
+  //       && (register.password === register.confirm)) {
+  //         users.push({
+  //           id: uuidv4(),
+  //           email: register.email,
+  //           password: register.password
+  //         })
+  //         enqueueSnackbar("You registered", { variant: "success" });
+  //         localStorage.setItem('users', JSON.stringify(users));
+  //         setRegister({
+  //           email: "",
+  //           password: "",
+  //           confirm: ""
+  //         })
+  //         setChecked(!checked);
+  //   }
+  // };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -216,7 +202,8 @@ const Registration = () => {
                   />
                   I accept the terms and privacy policy
               </label>
-              <button className="submitButton register" type="submit" onClick={submitRegister}>Register</button>
+              {/* onClick={submitRegister} */}
+              <button className="submitButton register" type="submit" >Register</button>
           </form>
         </TabPanel>
       </Box>
