@@ -1,12 +1,16 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
+import {useDispatch, useSelector} from 'react-redux';
+
 import './settingsPage.scss';
-import UserContext from '../../../context';
+import { signOut, changeEmail, changeAvatar, changeName, changeDescription } from '../../../store/userSlice';
 
 const SettingsPage = () => {
 
-  const {user, changeEmail, changeAvatar, changeName, changeDescription, signOut} = useContext(UserContext);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user)
+
   const [newEmail, setNewEmail] = useState(user.email);
   const [newAvatar, setNewAvatar] = useState(user.avatar || '');
   const [newName, setNewName] = useState(user.name || '');
@@ -45,7 +49,7 @@ const SettingsPage = () => {
                 </label>
                 <button  
                   type="submit" 
-                  onClick={(e) => {e.preventDefault(); changeEmail(newEmail)}}
+                  onClick={(e) => {e.preventDefault(); dispatch(changeEmail(newEmail))}}
                   className="btn">Save</button>
           </form>
           <form className="form">
@@ -61,7 +65,7 @@ const SettingsPage = () => {
                 </label>
                 <button 
                   type="submit" 
-                  onClick={(e) => {e.preventDefault(); changeAvatar(newAvatar)}}
+                  onClick={(e) => {e.preventDefault(); dispatch(changeAvatar(newAvatar))}}
                   className="btn"
                   >Save</button>
           </form>
@@ -78,7 +82,7 @@ const SettingsPage = () => {
                 </label>
                 <button 
                   type="submit" 
-                  onClick={(e) => {e.preventDefault(); changeName(newName)}}
+                  onClick={(e) => {e.preventDefault(); dispatch(changeName(newName))}}
                   className="btn"
                 >Save</button>
           </form>
@@ -94,9 +98,9 @@ const SettingsPage = () => {
                 </label>
                 <button  
                   type="submit" 
-                  onClick={(e) => {e.preventDefault(); changeDescription(newDesc)}}
+                  onClick={(e) => {e.preventDefault(); dispatch(changeDescription(newDesc))}}
                   className="btn">Save</button>
-                <button onClick={signOut} className="btn out">Sign out</button>
+                <button onClick={() => dispatch(signOut())} className="btn out">Sign out</button>
           </form>
       </div>
     </div>

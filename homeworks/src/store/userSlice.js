@@ -19,9 +19,33 @@ export const userSlice = createSlice({
       }
     },
     signOut: state => {state.user = null},
+    changeEmail: (state, action) => {
+        state.user = {
+          ...state.user,
+          email: action.payload
+        }
+    },
+    changeAvatar: (state, action) => {
+        state.user = {
+          ...state.user,
+          avatar: action.payload
+        }
+    },
+    changeName: (state, action) => {
+        state.user = {
+          ...state.user,
+          name: action.payload
+        }
+    },
+    changeDescription: (state, action) => {
+        state.user = {
+          ...state.user,
+          description: action.payload
+        }
+    }
   }
 })
 
-export const { signIn, signOut } = userSlice.actions
+export const { signIn, signOut, changeEmail, changeAvatar, changeName, changeDescription } = userSlice.actions
 
 export default userSlice.reducer
