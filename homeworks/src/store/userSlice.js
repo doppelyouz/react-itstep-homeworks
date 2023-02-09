@@ -13,8 +13,12 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    signIn: state => state.user = userData,
-    signOut: state => state.user = null,
+    signIn: (state, action) => {
+      if(action.payload.email === userData.email && action.payload.password === userData.password) {
+        state.user = userData;
+      }
+    },
+    signOut: state => {state.user = null},
   }
 })
 

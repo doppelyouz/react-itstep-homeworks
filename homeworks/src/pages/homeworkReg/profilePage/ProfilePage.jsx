@@ -1,13 +1,21 @@
-import React, { useContext }  from 'react'
+import React  from 'react'
 
-import UserContext from '../../../context';
 import avatar from './defAvatar.jpg';
 import {Link} from 'react-router-dom';
+
+import { signOut } from '../../../store/userSlice';
+
+import {useSelector, useDispatch} from 'react-redux';
 
 import './ProfilePage.scss'
 
 const ProfilePage = () => {
-  const {user, signOut} = useContext(UserContext);
+  const user = useSelector((state) => state.user)
+  const dispatch = useDispatch();
+
+  const signOutFunc = () => {
+    dispatch(signOut());
+  }
   return (
       <div className='user'>
         <div className='profile'>
@@ -19,7 +27,7 @@ const ProfilePage = () => {
             </div>
             <div className="profile__buttons">
               <Link to="/settings" className="btn settings">Settings</Link>
-              <button onClick={signOut} className="btn out">Sign out</button>
+              <button onClick={signOutFunc} className="btn out">Sign out</button>
             </div>
           </div>
           <div className="profile__description">

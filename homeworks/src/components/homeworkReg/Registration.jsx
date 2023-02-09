@@ -4,14 +4,14 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { v4 as uuidv4 } from 'uuid';
+//import { v4 as uuidv4 } from 'uuid';
 
 import { useState } from "react";
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import {signIn, signOut} from '../../store/userSlice';
 
-import { useSnackbar } from 'notistack';
+// import { useSnackbar } from 'notistack';
 
 import "./reg.scss"; 
 
@@ -51,7 +51,7 @@ function a11yProps(index) {
 }
 
 const Registration = () => {
-  const { enqueueSnackbar } = useSnackbar()
+  // const { enqueueSnackbar } = useSnackbar()
 
   const dispatch = useDispatch();
 
@@ -86,7 +86,10 @@ const Registration = () => {
   const submitSignUp = (e) => {
     e.preventDefault();
     if(email && password) {
-      dispatch()
+      dispatch(signIn({
+        email,
+        password
+      }))
     }
   };
 
