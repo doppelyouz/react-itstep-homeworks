@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 import ProfileRouter from '../../../components/homeworkReg/profileRouter';
 
@@ -22,9 +23,9 @@ const FeedPage = () => {
       <div className={s.feed}>
         <div className={s.feed__content}>
           <div className={s.feed__title}>Recent posts</div>
-          <button className={s.feed__add}>
-              Add new post
-          </button>
+          <Link to="/create">
+            <button className={s.feed__add}>Add new post</button>
+          </Link>
           <div className={s.feed__posts}>
             <ul className={s.feed__posts_grid}>
               {
