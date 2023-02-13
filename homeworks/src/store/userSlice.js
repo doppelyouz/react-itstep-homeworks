@@ -6,7 +6,9 @@ const initialState = {
 
 const userData = {
     email: "1",
-    password: "1"
+    password: "1",
+    name: "terminal",
+    avatar: "https://sun9-63.userapi.com/impg/ukyH6Yp7ge6FhkXCo-z8CV6KlCyJUENO3hGM2A/5hFqoJn97iM.jpg?size=564x564&quality=96&sign=37eeb9c995781c365df57f8023497f0b&c_uniq_tag=VKfhjMJ9V1ZAJ4ZpgQYnOA9tSx1_aBnTCMroRkhchHA&type=album"
 }
 
 export const userSlice = createSlice({

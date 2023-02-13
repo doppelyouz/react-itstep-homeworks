@@ -24,6 +24,7 @@ const ProfilePage = () => {
             <div className="profile__nameAndEmail">
               <div className="profile__name">{user.name ? user.name : <h3>you don't have a nickname</h3>}</div>
               <div className="profile__email">Hello! {user.email}</div>
+              <div className="profile__description">Hello! {user.description}</div>
             </div>
             <div className="profile__buttons">
               <Link to="/settings" className="btn settings">Settings</Link>

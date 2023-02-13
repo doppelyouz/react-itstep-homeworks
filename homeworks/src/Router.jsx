@@ -1,8 +1,13 @@
 import React from 'react'
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
+
 import RegistrationPage from './pages/homeworkReg/registrationPage';
 import ProfilePage from './pages/homeworkReg/profilePage';
 import SettingsPage from './pages/homeworkReg/settingsPage';
+import FeedPage from './pages/homeworkReg/feedPage'
+import FriendsPage from './pages/homeworkReg/friendsPage'
+import CreatePostPage from './pages/homeworkReg/createPostPage';
+import OnePostPage from './pages/homeworkReg/onePostPage';
 
 import {useSelector} from 'react-redux';
 
@@ -14,6 +19,10 @@ const Router = () => {
             {
               user ? 
                 <>
+                  <Route path="/create" element={<CreatePostPage />} />
+                  <Route path="/posts/:id" element={<OnePostPage />} />
+                  <Route path="/friends" element={<FriendsPage />} />
+                  <Route path="/feed" element={<FeedPage />} />
                   <Route path="/settings" element={<SettingsPage />} />
                   <Route path="*" element={<ProfilePage />} /> 
                 </>
