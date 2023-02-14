@@ -40,10 +40,48 @@
                 grid-template-rows: 1fr 1fr 1fr;
                 gap: 20px;
                 .grid__item {
+                    position: relative;
+                    width: 100%;
                     aspect-ratio: 1;
                     border-radius: 30px;
                     overflow: hidden;
                     user-select: none;
+                    transition: 0.2s all;
+                    .post__userName {
+                        position: absolute;
+                        top: 60%;
+                        left: 50%;
+                        opacity: 0;
+                        transition: 0.2s all;
+                        font-weight: 500;
+                        font-size: 20px;
+                        line-height: 125%;
+                        color: #363755;
+                        transform: translate(-50%, -50%);
+                    }
+                    .post__title {
+                        font-weight: 500;
+                        font-size: 20px;
+                        line-height: 125%;
+                        position: absolute;
+                        top: 80%;
+                        left: 50%;
+                        opacity: 0;
+                        transition: 0.2s all;
+                        color:#363755;
+                        transform: translate(-50%, -50%);
+                    }
+                    &:hover {
+                        img {
+                            filter: blur(2px);
+                        }
+                        .post__userName {
+                            opacity: 1;
+                        }
+                        .post__title {
+                            opacity: 1;
+                        }
+                    }
                     img {
                         pointer-events: none;
                         width: 100%;

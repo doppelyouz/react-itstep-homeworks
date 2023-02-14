@@ -1,24 +1,20 @@
 import {createSlice} from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const initialState = {
   user: null
 }
 
-const userData = {
-    email: "1",
-    password: "1",
-    name: "terminal",
-    avatar: "https://sun9-63.userapi.com/impg/ukyH6Yp7ge6FhkXCo-z8CV6KlCyJUENO3hGM2A/5hFqoJn97iM.jpg?size=564x564&quality=96&sign=37eeb9c995781c365df57f8023497f0b&c_uniq_tag=VKfhjMJ9V1ZAJ4ZpgQYnOA9tSx1_aBnTCMroRkhchHA&type=album"
-}
+const endpoint = 'http://localhost:3001/';
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    signIn: (state, action) => {
-      if(action.payload.email === userData.email && action.payload.password === userData.password) {
-        state.user = userData;
-      }
+    signIn: async (state, action) => {
+      const result = await axios(endpoint + 'users');
+      state.user = result.data.find(u => u.email === action.payload.email && u.password === action.payload.password)
+      console.log(state.user);
     },
     signOut: state => {state.user = null},
     changeEmail: (state, action) => {

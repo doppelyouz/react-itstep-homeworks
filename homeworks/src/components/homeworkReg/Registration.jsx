@@ -4,18 +4,19 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-//import { v4 as uuidv4 } from 'uuid';
 
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
 
 import {signIn, signOut} from '../../store/userSlice';
 
-// import { useSnackbar } from 'notistack';
+import { useSnackbar } from 'notistack';
 
 import "./reg.scss"; 
 
 import star from "./star.png";
+
+const endpoint = 'http://localhost:3001/';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -51,7 +52,7 @@ function a11yProps(index) {
 }
 
 const Registration = () => {
-  // const { enqueueSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar();
 
   const dispatch = useDispatch();
 
@@ -93,25 +94,29 @@ const Registration = () => {
     }
   };
 
-  // const submitRegister = (e) => {
-  //   e.preventDefault();
-  //   if((register.email && register.password && checked && register.confirm) 
-  //       && (register.password === register.confirm)) {
-  //         users.push({
-  //           id: uuidv4(),
-  //           email: register.email,
-  //           password: register.password
-  //         })
-  //         enqueueSnackbar("You registered", { variant: "success" });
-  //         localStorage.setItem('users', JSON.stringify(users));
-  //         setRegister({
-  //           email: "",
-  //           password: "",
-  //           confirm: ""
-  //         })
-  //         setChecked(!checked);
-  //   }
-  // };
+  const submitRegister = async (e) => {
+    e.preventDefault();
+    if((register.email && register.password && checked && register.confirm) 
+        && (register.password === register.confirm)) {
+          fetch(endpoint + 'users', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify({
+              email: register.email,
+              password: register.password
+            })
+          });
+          enqueueSnackbar("You registered", { variant: "success" });
+          setRegister({
+            email: "",
+            password: "",
+            confirm: ""
+          })
+          setChecked(!checked);
+    }
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -205,8 +210,7 @@ const Registration = () => {
                   />
                   I accept the terms and privacy policy
               </label>
-              {/* onClick={submitRegister} */}
-              <button className="submitButton register" type="submit" >Register</button>
+              <button className="submitButton register" type="submit" onClick={submitRegister}>Register</button>
           </form>
         </TabPanel>
       </Box>

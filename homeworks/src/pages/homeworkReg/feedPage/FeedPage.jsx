@@ -30,9 +30,13 @@ const FeedPage = () => {
             <ul className={s.feed__posts_grid}>
               {
                 posts.map((post) => 
-                  <li className={s.grid__item} key={post.id}>
-                    <img src={post.img} alt="postImage" />
-                  </li>
+                <Link to={"/posts/" + post.id} key={post.id}>
+                    <li className={s.grid__item}>
+                        <img src={post.img} alt="postImage" />
+                        <div className={s.post__userName}>{post.userName}</div>
+                        <div className={s.post__title}>{post.title}</div>
+                    </li>
+                </Link>
                 )
               }
             </ul>
