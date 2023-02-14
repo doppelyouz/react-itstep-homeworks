@@ -8,6 +8,7 @@ import { signOut } from '../../../store/userSlice';
 import {useSelector, useDispatch} from 'react-redux';
 
 import './ProfilePage.scss'
+import ProfileRouter from '../../../components/homeworkReg/profileRouter';
 
 const ProfilePage = () => {
   const user = useSelector((state) => state.user)
@@ -17,6 +18,8 @@ const ProfilePage = () => {
     dispatch(signOut());
   }
   return (
+    <>
+    <ProfileRouter />
       <div className='user'>
         <div className='profile'>
           <div className="profile__info">
@@ -49,6 +52,7 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
+      </>
   )
 }
 

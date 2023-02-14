@@ -5,10 +5,11 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-import { useState } from "react";
+import { useState, useEffect  } from "react";
 import { useDispatch } from 'react-redux';
 
 import {signIn, signOut} from '../../store/userSlice';
+import { getUsers } from '../../store/userSlice'
 
 import { useSnackbar } from 'notistack';
 
@@ -66,6 +67,10 @@ const Registration = () => {
     password: "",
     confirm: ""
   });
+
+  useEffect(() => {
+    dispatch(getUsers())
+  }, [])
 
   const emailInputChangeHandler = (e) => {
     setEmail(e.target.value)

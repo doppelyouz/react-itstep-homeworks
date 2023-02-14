@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
@@ -7,14 +7,21 @@ const initialState = {
 
 const endpoint = 'http://localhost:3001/';
 
+export const getUsers = createAsyncThunk(
+  'users/getUsers',
+  async () => {
+    const res = await fetch(endpoint + 'users').then(
+    (data) => data.json()
+  )
+  return res
+})
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    signIn: async (state, action) => {
-      const result = await axios(endpoint + 'users');
-      state.user = result.data.find(u => u.email === action.payload.email && u.password === action.payload.password)
-      console.log(state.user);
+    signIn: (state, action) => {
+      state.user = state.users.find(u => u.email === action.payload.email && u.password === action.payload.password);
     },
     signOut: state => {state.user = null},
     changeEmail: (state, action) => {
@@ -41,7 +48,19 @@ export const userSlice = createSlice({
           description: action.payload
         }
     }
-  }
+  },
+  extraReducers: {
+    [getUsers.pending]: (state) => {
+      state.loading = true
+    },
+    [getUsers.fulfilled]: (state, { payload }) => {
+      state.loading = false
+      state.users = payload
+    },
+    [getUsers.rejected]: (state) => {
+      state.loading = false
+    },
+  },
 })
 
 export const { signIn, signOut, changeEmail, changeAvatar, changeName, changeDescription } = userSlice.actions
