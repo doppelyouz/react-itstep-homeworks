@@ -12,14 +12,16 @@ const ProfileRouter = () => {
     const user = useSelector((state) => state.user)
     return (
         <div className={s.router}>
-            <div className={s.user_info}>
-                <div className={s.user__name}>
-                    {user.name}
+            <Link to="/">
+                <div className={s.user_info}>
+                        <div className={s.user__name}>
+                            {user.name}
+                        </div>
+                        <div className={s.user__avatar}>
+                            <img src={user.avatar} alt="avatar" />
+                        </div>
                 </div>
-                <div className={s.user__avatar}>
-                    <img src={user.avatar} alt="avatar" />
-                </div>
-            </div>
+            </Link>
             <div>
                 <Link to="/feed" className={s.router__link}><DynamicFeedIcon />Feed</Link>
             </div>

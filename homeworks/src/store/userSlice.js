@@ -16,6 +16,17 @@ export const getUsers = createAsyncThunk(
   return res
 })
 
+export const changeData = createAsyncThunk(
+  "users/changeData",
+      async (data) => {
+        try {
+          const response = await axios.put(endpoint + 'users/' + data.id, data)
+          return response.data
+        } catch (err) {
+          console.log(err);
+        }
+  })
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -23,31 +34,7 @@ export const userSlice = createSlice({
     signIn: (state, action) => {
       state.user = state.users.find(u => u.email === action.payload.email && u.password === action.payload.password);
     },
-    signOut: state => {state.user = null},
-    changeEmail: (state, action) => {
-        state.user = {
-          ...state.user,
-          email: action.payload
-        }
-    },
-    changeAvatar: (state, action) => {
-        state.user = {
-          ...state.user,
-          avatar: action.payload
-        }
-    },
-    changeName: (state, action) => {
-        state.user = {
-          ...state.user,
-          name: action.payload
-        }
-    },
-    changeDescription: (state, action) => {
-        state.user = {
-          ...state.user,
-          description: action.payload
-        }
-    }
+    signOut: state => {state.user = null}
   },
   extraReducers: {
     [getUsers.pending]: (state) => {
@@ -60,9 +47,32 @@ export const userSlice = createSlice({
     [getUsers.rejected]: (state) => {
       state.loading = false
     },
+    [changeData.fulfilled]: (state, { payload }) => {
+       state.users = state.users.map(u => {
+        if(u.id === payload.id) {
+          return payload;
+        } else {
+          return u;
+        }
+       })
+       state.user = state.users.find(u => u.id === state.user.id);
+    }
+  
+  //   .addCase(deletePost.fulfilled, (state, action) => {
+  //     if (!action?.payload.id) {
+  //         console.log("could not delete");
+  //         console.log(action.payload)
+  //         return 
+  //     }
+
+  //     const { id } = action.payload;
+  //     const OldPosts = state.posts.filter(post => 
+  //     post.id !== id)
+  //     state.posts = OldPosts
+  // })
   },
 })
 
-export const { signIn, signOut, changeEmail, changeAvatar, changeName, changeDescription } = userSlice.actions
+export const { signIn, signOut, changeAvatar, changeName, changeDescription } = userSlice.actions
 
 export default userSlice.reducer

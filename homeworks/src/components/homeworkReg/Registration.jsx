@@ -70,7 +70,7 @@ const Registration = () => {
 
   useEffect(() => {
     dispatch(getUsers())
-  }, [])
+  }, [dispatch])
 
   const emailInputChangeHandler = (e) => {
     setEmail(e.target.value)
@@ -99,8 +99,7 @@ const Registration = () => {
     }
   };
 
-  const submitRegister = async (e) => {
-    e.preventDefault();
+  const submitRegister = async () => {
     if((register.email && register.password && checked && register.confirm) 
         && (register.password === register.confirm)) {
           fetch(endpoint + 'users', {
@@ -113,7 +112,6 @@ const Registration = () => {
               password: register.password
             })
           });
-          enqueueSnackbar("You registered", { variant: "success" });
           setRegister({
             email: "",
             password: "",
