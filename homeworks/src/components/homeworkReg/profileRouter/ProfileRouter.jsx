@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 
 import Diversity1Icon from '@mui/icons-material/Diversity1';
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
+import PeopleIcon from '@mui/icons-material/People';
 
 import s from './profileRouter.module.scss'
 
@@ -24,6 +25,9 @@ const ProfileRouter = () => {
             </Link>
             <div>
                 <Link to="/feed" className={s.router__link}><DynamicFeedIcon />Feed</Link>
+            </div>
+            <div>
+                <Link to="/users" className={s.router__link}><PeopleIcon />Users</Link>
             </div>
             <div>
                 <Link to="/friends" className={s.router__link}><Diversity1Icon />Friends</Link>
