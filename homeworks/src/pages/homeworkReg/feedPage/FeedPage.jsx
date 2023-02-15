@@ -16,7 +16,7 @@ const FeedPage = () => {
         setPosts(result.data);
     };
     fetchData();
-}, []);
+}, [posts]);
   return (
     <>
       <ProfileRouter />

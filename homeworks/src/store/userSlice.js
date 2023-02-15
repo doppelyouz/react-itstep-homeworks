@@ -24,7 +24,7 @@ export const changeData = createAsyncThunk(
           const result = await axios(endpoint + 'posts');
           result.data.forEach(async p => {
             if(p.user.id === data.id) {
-              await axios.put(endpoint + 'posts/' + p.user.id, {...p, user: data});
+              await axios.put(endpoint + 'posts/' + p.id, {...p, user: data});
             }
           });
           return response.data
