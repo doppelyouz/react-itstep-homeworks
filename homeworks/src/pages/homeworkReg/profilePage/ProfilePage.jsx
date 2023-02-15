@@ -57,13 +57,17 @@ const ProfilePage = () => {
             {
                 posts.map((post) => {
                 if(post.user.id === user.id) {
-                       return <Link to={"/posts/" + post.id} key={post.id}>
-                            <li className="grid__item">
-                                <img src={post.img} alt="postImage" />
-                                <div className="post__userName">{post.userName}</div>
+                       return (
+                          <div className="grid__item">
+                              <Link to={"/posts/" + post.id} key={post.id}>
+                                <div className="postImg">
+                                  <img src={post.img} alt="postImage" className="fill"/>
+                                </div>
+                                <div className="post__userName">{post.user.name}</div>
                                 <div className="post__title">{post.title}</div>
-                            </li>
-                        </Link>
+                              </Link>
+                          </div>
+                       )
                   }
               })
             }

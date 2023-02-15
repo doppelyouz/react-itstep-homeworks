@@ -16,15 +16,6 @@ export const getUsers = createAsyncThunk(
   return res
 })
 
-// export const getPosts = createAsyncThunk(
-//   'posts/getPosts',
-//   async () => {
-//     const res = await fetch(endpoint + 'posts').then(
-//     (data) => data.json()
-//   )
-//   return res
-// })
-
 export const changeData = createAsyncThunk(
   "users/changeData",
       async (data) => {
@@ -64,11 +55,7 @@ export const userSlice = createSlice({
         }
        })
        state.user = state.users.find(u => u.id === state.user.id);
-      }},
-      // [getPosts.fulfilled]: (state, { payload }) => {
-      //   state.posts = payload
-      //   console.log(state.posts);
-      // }
+      }}
 })
 
 export const { signIn, signOut, changeAvatar, changeName, changeDescription } = userSlice.actions
