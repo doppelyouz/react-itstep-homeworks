@@ -15,7 +15,10 @@ const OnePostPage = () => {
   useEffect(() => {
     const fetchData = async () => {
         const result = await axios(endpoint + 'posts');
-        const post = result.data.find(p => p.id === id);
+        console.log('====================================');
+        console.log(result.data);
+        console.log('====================================');
+        const post = result.data.find(p => p.id == id);
         setPost(post);
     };
     fetchData();
