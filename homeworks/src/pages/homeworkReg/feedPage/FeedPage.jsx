@@ -33,7 +33,7 @@ const FeedPage = () => {
                 <Link to={"/posts/" + post.id} key={post.id}>
                     <li className={s.grid__item}>
                         <img src={post.img} alt="postImage" />
-                        <div className={s.post__userName}>{post.userName}</div>
+                        <div className={s.post__userName}>{post.user.name}</div>
                         <div className={s.post__title}>{post.title}</div>
                     </li>
                 </Link>

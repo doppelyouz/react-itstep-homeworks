@@ -1,4 +1,5 @@
-import React  from 'react'
+import React, {useState, useEffect}  from 'react'
+import axios from 'axios';
 
 import avatar from '../../../images/defAvatar.jpg';
 import { Link } from 'react-router-dom';
@@ -10,6 +11,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import './ProfilePage.scss'
 import ProfileRouter from '../../../components/homeworkReg/profileRouter';
 
+const endpoint = 'http://localhost:3001/';
+
 const ProfilePage = () => {
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch();
@@ -17,6 +20,16 @@ const ProfilePage = () => {
   const signOutFunc = () => {
     dispatch(signOut());
   }
+
+  const [posts, setPosts] = useState([]);
+    useEffect(() => {
+      const fetchData = async () => {
+          const result = await axios(endpoint + 'posts');
+          setPosts(result.data);
+      };
+      fetchData();
+  }, []);
+
   return (
     <>
     <ProfileRouter />
@@ -40,7 +53,21 @@ const ProfilePage = () => {
             </div>
           </div>
           <div className="profile__posts">
-
+            <div className="profile__posts_grid">
+            {
+                posts.map((post) => {
+                if(post.user.id === user.id) {
+                       return <Link to={"/posts/" + post.id} key={post.id}>
+                            <li className="grid__item">
+                                <img src={post.img} alt="postImage" />
+                                <div className="post__userName">{post.userName}</div>
+                                <div className="post__title">{post.title}</div>
+                            </li>
+                        </Link>
+                  }
+              })
+            }
+              </div>
           </div>
           <div className="profile__pagination">
             <button className='profile__pagination_button'>

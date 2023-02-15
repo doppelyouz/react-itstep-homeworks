@@ -5,8 +5,8 @@
     border-top-right-radius: 10%;
     box-sizing: border-box;
     margin: 0 auto;
-    height: 100vh;
     margin-top: 45px;
+    padding-bottom: 50px;
     .profile {
         padding-top: 80px;
         padding-left: 110px;
@@ -90,6 +90,60 @@
             height: 100%; 
             padding: 50px 70px;
             margin-bottom: 40px;
+            .profile__posts_grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-rows: 1fr 1fr 1fr;
+                gap: 20px;
+                .grid__item {
+                    position: relative;
+                    width: 100%;
+                    aspect-ratio: 1;
+                    border-radius: 30px;
+                    overflow: hidden;
+                    user-select: none;
+                    transition: 0.2s all;
+                    .post__userName {
+                        position: absolute;
+                        top: 60%;
+                        left: 50%;
+                        opacity: 0;
+                        transition: 0.2s all;
+                        font-weight: 500;
+                        font-size: 20px;
+                        line-height: 125%;
+                        color: #363755;
+                        transform: translate(-50%, -50%);
+                    }
+                    .post__title {
+                        font-weight: 500;
+                        font-size: 20px;
+                        line-height: 125%;
+                        position: absolute;
+                        top: 80%;
+                        left: 50%;
+                        opacity: 0;
+                        transition: 0.2s all;
+                        color:#363755;
+                        transform: translate(-50%, -50%);
+                    }
+                    &:hover {
+                        img {
+                            filter: blur(2px);
+                        }
+                        .post__userName {
+                            opacity: 1;
+                        }
+                        .post__title {
+                            opacity: 1;
+                        }
+                    }
+                    img {
+                        pointer-events: none;
+                        width: 100%;
+                    }
+                }
+            }
         }
         .profile__pagination {
             display: flex;

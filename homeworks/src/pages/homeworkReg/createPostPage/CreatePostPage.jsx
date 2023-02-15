@@ -1,14 +1,18 @@
 import React, {useState} from 'react'
+import { useSelector } from 'react-redux';
 import ProfileRouter from '../../../components/homeworkReg/profileRouter';
 import s from './createPostPage.module.scss';
 
 const endpoint = 'http://localhost:3001/';
 
 const CreatePostPage = () => {
+  const user = useSelector(state => state.user);
+  
   const [formData, setFormData] = useState({
     img: "",
     title: "",
-    text: ""
+    text: "",
+    user
   });
 
   const inputChangeHandler = (e) => {

@@ -1,81 +1,51 @@
 {
   "posts": [
     {
-      "id": "1",
-      "img": "https://sun9-63.userapi.com/impg/ukyH6Yp7ge6FhkXCo-z8CV6KlCyJUENO3hGM2A/5hFqoJn97iM.jpg?size=564x564&quality=96&sign=37eeb9c995781c365df57f8023497f0b&c_uniq_tag=VKfhjMJ9V1ZAJ4ZpgQYnOA9tSx1_aBnTCMroRkhchHA&type=album"
-    },
-    {
-      "id": "2",
-      "img": "https://sun9-63.userapi.com/impg/ukyH6Yp7ge6FhkXCo-z8CV6KlCyJUENO3hGM2A/5hFqoJn97iM.jpg?size=564x564&quality=96&sign=37eeb9c995781c365df57f8023497f0b&c_uniq_tag=VKfhjMJ9V1ZAJ4ZpgQYnOA9tSx1_aBnTCMroRkhchHA&type=album"
-    },
-    {
-      "id": "3",
-      "img": "https://sun9-63.userapi.com/impg/ukyH6Yp7ge6FhkXCo-z8CV6KlCyJUENO3hGM2A/5hFqoJn97iM.jpg?size=564x564&quality=96&sign=37eeb9c995781c365df57f8023497f0b&c_uniq_tag=VKfhjMJ9V1ZAJ4ZpgQYnOA9tSx1_aBnTCMroRkhchHA&type=album"
-    },
-    {
-      "id": "4",
-      "img": "https://sun9-63.userapi.com/impg/ukyH6Yp7ge6FhkXCo-z8CV6KlCyJUENO3hGM2A/5hFqoJn97iM.jpg?size=564x564&quality=96&sign=37eeb9c995781c365df57f8023497f0b&c_uniq_tag=VKfhjMJ9V1ZAJ4ZpgQYnOA9tSx1_aBnTCMroRkhchHA&type=album"
-    },
-    {
       "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1200px-Vue.js_Logo_2.svg.png",
-      "title": "321",
-      "text": "321",
-      "id": "K7FSqH4"
+      "title": "aza",
+      "text": "aza",
+      "user": {
+        "email": "1",
+        "password": "1",
+        "avatar": "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg",
+        "id": 1
+      },
+      "id": "WxR6JF1"
     },
     {
-      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/1200px-Angular_full_color_logo.svg.png",
-      "title": "432432",
-      "text": "432432reagre",
-      "id": "pHhFF12"
-    },
-    {
-      "img": "321",
+      "img": "https://cdn.serif.com/affinity/img/photo/home/0322/composition/composition-041120220926--lg@2x.jpg",
       "title": "321",
-      "text": "321",
-      "id": "C1tnBkr"
+      "text": "dsa",
+      "user": {
+        "email": "1",
+        "password": "1",
+        "id": 1,
+        "avatar": "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg",
+        "description": "1",
+        "name": "1111aaa"
+      },
+      "id": "UxpUNSf"
     }
   ],
   "users": [
     {
-      "email": "1321321",
+      "email": "1",
       "password": "1",
-      "id": 1
-    },
-    {
-      "email": "2fefaew32",
-      "password": "2",
-      "id": 2
-    },
-    {
-      "email": "hgaegae",
-      "password": "h",
-      "id": 3
-    },
-    {
-      "email": "321",
-      "password": "321",
-      "id": 4
+      "id": 1,
+      "avatar": "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg",
+      "description": "1",
+      "name": "1111aaa"
     },
     {
       "email": "2",
       "password": "2",
-      "id": 5
+      "id": 2,
+      "avatar": "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg"
     },
     {
-      "email": "g76",
-      "password": "g",
-      "id": 6,
-      "avatar": "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg",
-      "description": "klgyuikyu",
-      "name": "barsik"
-    },
-    {
-      "email": "111",
-      "password": "1",
-      "id": 7,
-      "name": "111",
-      "avatar": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBERERERERIREREREQ8PERESEREPEQ8RGBQZGRgUGBgcIS4lHB4rHxgYJzgmKy8xNTU1GiQ7QDs0Py40NTEBDAwMEA8QHBISHjQkJCs0NDQxNDQ0NDQ0NDQ0NjQ0OjQ0NDQ0NDQ0NDQxNDQ2NDQ0NDQ0NDQ0MTQ0NDE0NDQ0NP/AABEIAMEBBQMBIgACEQEDEQH/xAAbAAACAwEBAQAAAAAAAAAAAAAAAgEDBAUGB//EADwQAAIBAgQCCAQFAgUFAQAAAAABAgMRBBIhMUFRBRMiYXGBkaEGscHwFDJCYtFS8SNDcoLhJFSSk6IV/8QAGgEAAwEBAQEAAAAAAAAAAAAAAAECAwQFBv/EAC4RAAICAQIEAwgCAwAAAAAAAAABAhEDEiETMXHwBEFhBRQyUYGhsdEikSPB4f/aAAwDAQACEQMRAD8A6kR0JEsifEn046HiIh4iYFkRkREZEMkZDoVFiESwQ6QqHQiGShkiEhkgIBIZIEiUgJsEhkgSJSAmyLE2GSJAVi2IsOACsSxFiyxDQDsraIaHaIaAdiNCtDtEMChGhGixiMC0KxGWMrYFCsRljEYy0KBABZRzYlkRIjxNSiyJZEriWRJAtiMhYjIhkjoZCoZCIY6HQiGQEMdDoUlAQxkMhUOhEslIZIVDjIBImxBNgERYLDBYBWRYgkGBQojHYrAEIyGSxWIsVisZisZaEYjLGIwLSFZWx2IwNEQAAAzmRHiyiLLIs2LL0x4sqiyyLJEXRZYiiLLYsliZYmOipMsTJIY8R0VodAQyxMZCRYyEZssQyEQyAljoZCoZDIJQ6RCQ6iBDYtgaLFB8gcRWhWUsVluURjKTEYrGYjApCsRjsrYjRAIxmIwKRDK2MxWM0QrEYzYrYFoi4CNgUUcqLLIszxkWxkbMsvix4soiy2MiGIuiy2LM8WWxkSI0JjJlEZFqZBLRamMmVxY6YEMsT",
-      "description": "111"
+      "email": "a",
+      "password": "a",
+      "id": 3
     }
   ]
 }

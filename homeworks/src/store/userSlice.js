@@ -16,6 +16,15 @@ export const getUsers = createAsyncThunk(
   return res
 })
 
+export const getPosts = createAsyncThunk(
+  'posts/getPosts',
+  async () => {
+    const res = await fetch(endpoint + 'posts').then(
+    (data) => data.json()
+  )
+  return res
+})
+
 export const changeData = createAsyncThunk(
   "users/changeData",
       async (data) => {
@@ -37,15 +46,8 @@ export const userSlice = createSlice({
     signOut: state => {state.user = null}
   },
   extraReducers: {
-    [getUsers.pending]: (state) => {
-      state.loading = true
-    },
     [getUsers.fulfilled]: (state, { payload }) => {
-      state.loading = false
       state.users = payload
-    },
-    [getUsers.rejected]: (state) => {
-      state.loading = false
     },
     [changeData.fulfilled]: (state, { payload }) => {
        state.users = state.users.map(u => {
@@ -56,21 +58,11 @@ export const userSlice = createSlice({
         }
        })
        state.user = state.users.find(u => u.id === state.user.id);
-    }
-  
-  //   .addCase(deletePost.fulfilled, (state, action) => {
-  //     if (!action?.payload.id) {
-  //         console.log("could not delete");
-  //         console.log(action.payload)
-  //         return 
-  //     }
-
-  //     const { id } = action.payload;
-  //     const OldPosts = state.posts.filter(post => 
-  //     post.id !== id)
-  //     state.posts = OldPosts
-  // })
-  },
+      }},
+      [getPosts.fulfilled]: (state, { payload }) => {
+        state.posts = payload
+        console.log(state.posts);
+      }
 })
 
 export const { signIn, signOut, changeAvatar, changeName, changeDescription } = userSlice.actions

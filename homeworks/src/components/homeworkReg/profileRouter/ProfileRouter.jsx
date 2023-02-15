@@ -15,10 +15,10 @@ const ProfileRouter = () => {
             <Link to="/">
                 <div className={s.user_info}>
                         <div className={s.user__name}>
-                            {user.name}
+                            {user?.name}
                         </div>
                         <div className={s.user__avatar}>
-                            <img src={user.avatar} alt="avatar" />
+                            <img src={user?.avatar} alt="avatar" />
                         </div>
                 </div>
             </Link>
