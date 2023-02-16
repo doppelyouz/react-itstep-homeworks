@@ -15,13 +15,6 @@ import {useSelector} from 'react-redux';
 const Router = () => {
   const user = useSelector((state) => state.user)
   const users = useSelector((state) => state.users)
-  // const friends = users.forEach(u => {
-  //   u?.friends.forEach(friend => {
-  //     if(friend.id === u.id) {
-  //       return friend;
-  //     }
-  //   })
-  // })
   return (
     <BrowserRouter>
         <Routes>
@@ -30,7 +23,7 @@ const Router = () => {
                 <>
                   <Route path="/create" element={<CreatePostPage />} />
                   <Route path="/posts/:id" element={<OnePostPage />} />
-                  <Route path="/friends" element={<UsersPage users={users} friends={true}/>} />
+                  <Route path="/friends" element={<UsersPage users={user.friends} friends={true}/>} />
                   <Route path="/users" element={<UsersPage users={users} friends={false} />} />
                   <Route path="/users/:id" element={<UserPage />} />
                   <Route path="/feed" element={<FeedPage />} />

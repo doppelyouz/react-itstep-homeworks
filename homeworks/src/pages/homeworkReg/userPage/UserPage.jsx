@@ -1,29 +1,75 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useCallback, useMemo} from 'react'
 import axios from 'axios';
-
 import defAvatar from '../../../images/defAvatar.jpg';
 import ProfileRouter from '../../../components/homeworkReg/profileRouter';
 import { Link, useParams } from 'react-router-dom';
 
 import './userPage.module.scss'
+import { useSelector, useDispatch } from 'react-redux';
+import { changeData } from '../../../store/userSlice';
 
 const endpoint = 'http://localhost:3001/';
 
 const UserPage = () => {
     const {id} = useParams();
 
+    const dispatch = useDispatch();
+
+    const you = useSelector(state => state.user);
+
     const [posts, setPosts] = useState([]);
     const [user, setUser] = useState({});
+    const [friend, setFriend] = useState(null);
+
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios(endpoint + 'posts');
             const user = await axios(endpoint + 'users/' + id);
             setUser(user.data);
-            console.log(user);
             setPosts(result.data);
         };
         fetchData();
-    }, []);
+    }, [id]);
+
+    useEffect(() => {
+      you.friends.find(f => {
+        if(Number(f) === Number(id)) {
+          setFriend(true)
+        }
+      })
+    }, [id, you.friends])
+
+    const addFriend = () => {
+      if(!friend) {
+        fetch(endpoint + 'users/' + you.id, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+              ...you,
+              friends: [...you.friends, user.id]
+          })
+        })
+        dispatch(changeData({
+            ...you,
+            friends: [...you.friends, user.id]
+        }))
+        setFriend(true)
+      } else {
+        fetch(endpoint + 'users/' + you.id, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+              ...you,
+              friends: you.friends.filter(f => Number(f) !== Number(id))
+          })
+        })
+        dispatch(changeData({
+          ...you,
+          friends: you.friends.filter(f => Number(f) !== Number(id))
+      }))
+        setFriend(false)
+      }
+    }
 
   return (
     <>
@@ -37,8 +83,8 @@ const UserPage = () => {
                 <div className="profile__name">{user.name ? user.name : <h3>He doesn't have a nickname</h3>}</div>
                 <div className="profile__email">{user.email}</div>
                 <div className="profile__description">{user.description}</div>
-                <button className='profile__follow'>
-                  Follow
+                <button className='profile__follow' onClick={addFriend}>
+                  {friend ? "Unfollow" : "Follow"}
                 </button>
               </div>
             </div>
@@ -49,8 +95,8 @@ const UserPage = () => {
                 posts.map((post) => {
                 if(Number(post.user.id) === Number(id)) {
                        return (
-                          <div className="grid__item">
-                              <Link to={"/posts/" + post.id} key={post.id}>
+                          <div className="grid__item" key={post.id}>
+                              <Link to={"/posts/" + post.id}>
                                 <div className="postImg">
                                   <img src={post.img} alt="postImage" className="fill"/>
                                 </div>

@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom';
 import { signOut } from '../../../store/userSlice';
 
 import {useSelector, useDispatch} from 'react-redux';
+import ProfileRouter from '../../../components/homeworkReg/profileRouter';
 
 import './ProfilePage.scss'
-import ProfileRouter from '../../../components/homeworkReg/profileRouter';
 
 const endpoint = 'http://localhost:3001/';
 
@@ -42,9 +42,6 @@ const ProfilePage = () => {
                 <div className="profile__name">{user.name ? user.name : <h3>you don't have a nickname</h3>}</div>
                 <div className="profile__email">Hello! {user.email}</div>
                 <div className="profile__description">{user.description}</div>
-                <button className='profile__follow'>
-                  Follow
-                </button>
               </div>
             </div>
             <div className="profile__buttons">

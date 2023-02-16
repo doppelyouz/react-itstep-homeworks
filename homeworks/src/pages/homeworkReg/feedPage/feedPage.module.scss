@@ -37,7 +37,6 @@
             .feed__posts_grid {
                 display: grid;
                 grid-template-columns: 1fr 1fr 1fr;
-                grid-template-rows: 1fr 1fr 1fr;
                 gap: 20px;
                 .grid__item {
                     position: relative;

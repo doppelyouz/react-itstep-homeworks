@@ -8,8 +8,10 @@ import Box from "@mui/material/Box";
 import { useState, useEffect  } from "react";
 import { useDispatch } from 'react-redux';
 
-import {signIn, signOut} from '../../store/userSlice';
+import {signIn} from '../../store/userSlice';
 import { getUsers } from '../../store/userSlice'
+
+import defAvatar from '../../images/defAvatar.jpg'
 
 import { useSnackbar } from 'notistack';
 
@@ -109,7 +111,9 @@ const Registration = () => {
               },
             body: JSON.stringify({
               email: register.email,
-              password: register.password
+              password: register.password,
+              avatar: defAvatar,
+              friends: []
             })
           });
           setRegister({

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ProfileRouter from '../../../components/homeworkReg/profileRouter';
 import User from '../../../components/homeworkReg/user';
@@ -6,6 +7,8 @@ import User from '../../../components/homeworkReg/user';
 import s from './usersPage.module.scss';
 
 const UsersPage = ({users, friends}) => {
+  const user = useSelector(state => state.user);
+  const usersAll = useSelector(state => state.users);
   return (
     <>
       <ProfileRouter/>
@@ -16,11 +19,28 @@ const UsersPage = ({users, friends}) => {
           </div>
           <div className={s.users__list}>
             {
+              friends ? 
+              usersAll.map(u => 
+                users.map(f => 
+                  Number(f) === Number(u.id) ?
+                  <div key={f}>
+                      <Link to={/users/ + f}>
+                          <User img={u.avatar} name={u.name} email={u.email}/>
+                      </Link>
+                  </div> : null  
+                ))
+              :
               users.map(u =>
-                <div>
-                  <Link to={/users/ + u.id}>
-                    <User img={u.avatar} name={u.name} email={u.email}/>
-                  </Link>
+                <div key={u.id}>
+                  {
+                    user.id === u.id ?
+                    <Link to="/profile">
+                      <User img={u.avatar} name={u.name} email={u.email}/>
+                    </Link> :
+                    <Link to={/users/ + u.id}>
+                      <User img={u.avatar} name={u.name} email={u.email}/>
+                    </Link>
+                  }
                 </div>
               )
             }

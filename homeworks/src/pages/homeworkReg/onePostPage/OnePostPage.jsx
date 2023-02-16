@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import devAvatar from '../../../images/defAvatar.jpg';
 import ProfileRouter from '../../../components/homeworkReg/profileRouter';
 
@@ -37,6 +37,7 @@ const OnePostPage = () => {
         console.log(result.data);
         const post = result.data.find(p => Number(p.id) === Number(id));
         setPost(post);
+        console.log(post);
     };
     fetchData();
   }, [id]);
@@ -73,7 +74,6 @@ const OnePostPage = () => {
       setEditing(false);
     }
   }
-
   return (
     <>
       <ProfileRouter />
@@ -101,9 +101,11 @@ const OnePostPage = () => {
               : post?.text}
             </div>
           </div>
-          <div className={s.onePost__profile}>
-            <img src={post?.user?.avatar} alt="userAvatar" className={s.onePost__profile_avatar}/>
-            <div className={s.onePost__profile_name}>{post?.user?.email}</div>
+          <div>
+            <Link to={"/users/" + post?.user?.id} className={s.onePost__profile}>
+              <img src={post.user?.avatar} alt="userAvatar" className={s.onePost__profile_avatar}/>
+              <div className={s.onePost__profile_name}>{post.user?.email}</div>
+            </Link>
           </div>
           { 
             user?.id === post.user?.id && 
