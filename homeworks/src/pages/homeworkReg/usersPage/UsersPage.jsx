@@ -26,13 +26,12 @@ const UsersPage = ({ users, friends }) => {
                           users.map((f) =>
                             Number(f) === Number(u.id) ? (
                               <div key={f}>
-                                <Link to={/users/ + f}>
                                   <User
+                                    id={u.id}
                                     img={u.avatar}
                                     name={u.name}
                                     email={u.email}
                                   />
-                                </Link>
                               </div>
                             ) : null
                           )
@@ -42,19 +41,19 @@ const UsersPage = ({ users, friends }) => {
                             {user.id === u.id ? (
                               <Link to="/profile">
                                 <User
+                                  id={u.id}
                                   img={u.avatar}
                                   name={u.name}
                                   email={u.email}
                                 />
                               </Link>
                             ) : (
-                              <Link to={/users/ + u.id}>
                                 <User
+                                  id={u.id}
                                   img={u.avatar}
                                   name={u.name}
                                   email={u.email}
                                 />
-                              </Link>
                             )}
                           </div>
                         ))}
