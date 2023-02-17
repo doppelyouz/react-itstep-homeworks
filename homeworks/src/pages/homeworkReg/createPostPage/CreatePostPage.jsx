@@ -1,18 +1,25 @@
 import React, {useState} from 'react'
-import { useSelector } from 'react-redux';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { addPost } from '../../../store/postsSlice';
+import { useNavigate } from 'react-router-dom';
+
 import ProfileRouter from '../../../components/homeworkReg/profileRouter';
+
 import s from './createPostPage.module.scss';
 
-const endpoint = 'http://localhost:3001/';
-
 const CreatePostPage = () => {
-  const user = useSelector(state => state.user);
-  
+  const navigate = useNavigate();
+
+  const {user} = useSelector(state => state.user);
+    
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     img: "",
     title: "",
     text: "",
-    user
+    user: user.id
   });
 
   const inputChangeHandler = (e) => {
@@ -25,30 +32,10 @@ const CreatePostPage = () => {
         }
     })
   };
-  
-  console.log('formData: ', formData);
-
-  async function postData(url = '', data = {}) {
-    const response = await fetch(url, {
-      method: 'POST', 
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-    return response.json();
-  }
 
   const createPost = () => {
     if(formData.img && formData.text && formData.title) {
-      postData(endpoint + 'posts', formData) 
-      .then((data) => {
-        console.log(data);
-      });
-    } else {
-      console.log('====================================');
-      console.log("error");
-      console.log('====================================');
+      dispatch(addPost(formData))
     }
   }
 

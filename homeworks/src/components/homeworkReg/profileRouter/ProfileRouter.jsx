@@ -1,8 +1,9 @@
 import React from 'react'
+
 import { useSelector } from 'react-redux'
+
 import {Link} from 'react-router-dom';
  
-
 import Diversity1Icon from '@mui/icons-material/Diversity1';
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 import PeopleIcon from '@mui/icons-material/People';
@@ -10,7 +11,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import s from './profileRouter.module.scss'
 
 const ProfileRouter = () => {
-    const user = useSelector((state) => state.user)
+    const {user} = useSelector((state) => state.user)
     return (
         <div className={s.router}>
             <Link to="/">
@@ -19,7 +20,7 @@ const ProfileRouter = () => {
                             {user?.name}
                         </div>
                         <div className={s.user__avatar}>
-                            <img src={user?.avatar} alt="avatar" />
+                            <img src={user.avatar} alt="avatar" />
                         </div>
                 </div>
             </Link>

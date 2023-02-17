@@ -1,64 +1,34 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
-import { changeData } from "../../../store/userSlice";
+import { changeData, getUserById } from "../../../store/userSlice";
 
 import s from './user.module.scss';
 
-const endpoint = "http://localhost:3001/";
-
 const User = ({id, img, name, email}) => {
-  const you = useSelector((state) => state.user);
+  const {user} = useSelector((state) => state.user);
   const [friend, setFriend] = useState(null);
 
   const dispatch = useDispatch();
-
   
   useEffect(() => {
-    you.friends.find((f) => {
-      if (Number(f) === Number(id)) {
+    dispatch(getUserById(id));
+    user.friends.find((friend) => {
+      if (Number(friend) === Number(id)) {
         setFriend(true);
       }
     });
-  }, [id, you.friends]);
+  }, [dispatch, id, user.friends]);
 
-  const addFriend = () => {
-
+  const switchFriend = () => {
     if (!friend) {
-      fetch(endpoint + "users/" + you.id, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...you,
-          friends: [...you.friends, id],
-        }),
-      });
-      dispatch(
-        changeData({
-          ...you,
-          friends: [...you.friends, id],
-        })
-      );
+      dispatch(changeData({...user, friends: [...user.friends, id]}))
       setFriend(true);
     } else {
-      fetch(endpoint + "users/" + you.id, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...you,
-          friends: you.friends.filter((f) => Number(f) !== Number(id)),
-        }),
-      });
-      dispatch(
-        changeData({
-          ...you,
-          friends: you.friends.filter((f) => Number(f) !== Number(id)),
-        })
-      );
+      dispatch(changeData({...user, friends: user.friends.filter(friend => friend !== id)}))
       setFriend(false);
     }
   };
-
   return (
     <div className={s.user}>
         <Link to={/users/ + id}  className={s.link}>
@@ -70,7 +40,7 @@ const User = ({id, img, name, email}) => {
               <div className={s.user__email}>{email}</div>
           </div>
         </Link>
-        { Number(you.id) === Number(id) || <button className={s.user__follow} onClick={addFriend}>{friend ? "Unfollow": "Follow"}</button> }
+        { Number(user.id) === Number(id) || <button className={s.user__follow} onClick={switchFriend}>{friend ? "Unfollow" : "Follow"}</button> }
     </div>
   )
 }

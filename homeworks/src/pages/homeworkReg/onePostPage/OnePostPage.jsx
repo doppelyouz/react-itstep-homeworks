@@ -1,24 +1,27 @@
 import React, {useState, useEffect} from 'react'
-import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
-import devAvatar from '../../../images/defAvatar.jpg';
+
+import { Link, useParams, useNavigate } from 'react-router-dom';
+
 import ProfileRouter from '../../../components/homeworkReg/profileRouter';
 
 import { useSnackbar } from 'notistack'
+import { useSelector, useDispatch } from 'react-redux';
+import { getPostById, deletePostById, editPostById } from '../../../store/postsSlice';
+import { getUserById } from '../../../store/userSlice';
 
 import s from './onePostPage.module.scss';
-import { useSelector } from 'react-redux';
-
-const endpoint = 'http://localhost:3001/';
 
 const OnePostPage = () => {
-  const  { id } = useParams();  
-  const user = useSelector(state => state.user);
+  const  { id } = useParams();
+  const { user, userById } = useSelector(state => state.user);
+  const { post } = useSelector(state => state.posts);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const {enqueueSnackbar} = useSnackbar();
   
-  const [post, setPost] = useState({});
   const [editing, setEditing] = useState(false);
-
   
   const [newTitle, setNewTitle] = useState(post.title);
   const [newText, setNewText] = useState(post.text);
@@ -32,48 +35,39 @@ const OnePostPage = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-        const result = await axios(endpoint + 'posts');
-        console.log(result.data);
-        const post = result.data.find(p => Number(p.id) === Number(id));
-        setPost(post);
-        console.log(post);
-    };
-    fetchData();
-  }, [id]);
-  
+    dispatch(getUserById(post.user))
+  }, [dispatch, post.user]);
 
+  useEffect(() => {
+    dispatch(getPostById(id));
+  }, [dispatch, id]);
+  
   const deletePost = () => {
-      fetch(endpoint + 'posts/' + id, {
-        method: 'DELETE',
-      })
-      .then(res => res.json())
-      .then(res => console.log(res))
-      enqueueSnackbar('The post has been deleted!', { variant: `success` })
+    dispatch(deletePostById(id));
+    navigate("/profile");
   }
+
   const editingSwitcher = () => {
     setEditing(editing => !editing);
   }
+
   const editPost = () => {
     if(newTitle && newText) {
-      fetch(endpoint + 'posts/' + id, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...post,
-          title: newTitle,
-          text: newText
-        })
-      })
-      .then(res => res.json())
-      .then(res => console.log(res))
+      const data = {
+        id, title : newTitle, text: newText
+      }
+      dispatch(editPostById(data));
       enqueueSnackbar('The post has been edited!', { variant: `success` })
-      setEditing(false);
+      setNewText("");
+      setNewTitle("");
     } else {
       enqueueSnackbar('Incomplete data!', { variant: `error` })
-      setEditing(false);
+      setNewText("");
+      setNewTitle("");
     }
+    setEditing(false);
   }
+
   return (
     <>
       <ProfileRouter />
@@ -90,7 +84,7 @@ const OnePostPage = () => {
                         : post?.title}
           </div>
           <div className={s.onePost__info}>
-            {post.img ? <img src={post.img} alt="postImage" className={s.onePost__image} /> : <img src={devAvatar} alt="postImage" className={s.onePost__image} /> }
+            <img src={post.img} alt="postImage" className={s.onePost__image} />
             <div className={s.onePost__desc}>
               {editing ? <textarea 
                           type="text"
@@ -102,13 +96,13 @@ const OnePostPage = () => {
             </div>
           </div>
           <div>
-            <Link to={"/users/" + post?.user?.id} className={s.onePost__profile}>
-              <img src={post.user?.avatar} alt="userAvatar" className={s.onePost__profile_avatar}/>
-              <div className={s.onePost__profile_name}>{post.user?.email}</div>
+            <Link to={"/users/" + userById?.id} className={s.onePost__profile}>
+              <img src={userById?.avatar} alt="userAvatar" className={s.onePost__profile_avatar}/>
+              <div className={s.onePost__profile_name}>{userById?.email}</div>
             </Link>
           </div>
           { 
-            user?.id === post.user?.id && 
+            Number(user.id) === Number(userById?.id) && 
             <div className={s.onePost__settings}>
               <button className={s.onePost__delete} onClick={deletePost}>Delete</button>
               { editing ? 

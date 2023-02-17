@@ -1,86 +1,52 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
-import axios from "axios";
-import defAvatar from "../../../images/defAvatar.jpg";
+import React, { useState, useEffect } from "react";
+
 import ProfileRouter from "../../../components/homeworkReg/profileRouter";
 import { Link, useParams } from "react-router-dom";
 
-import "./userPage.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { changeData } from "../../../store/userSlice";
+import { getUserById, changeData } from "../../../store/userSlice";
 
-const endpoint = "http://localhost:3001/";
+import "./userPage.module.scss";
 
 const UserPage = () => {
   const { id } = useParams();
 
   const dispatch = useDispatch();
 
-  const you = useSelector((state) => state.user);
+  const { user, userById } = useSelector((state) => state.user);
+  const { posts } = useSelector((state) => state.posts);
 
-  const [posts, setPosts] = useState([]);
-  const [user, setUser] = useState({});
   const [friend, setFriend] = useState(null);
   const [hasPosts, setHasPosts] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(endpoint + "posts");
-      const user = await axios(endpoint + "users/" + id);
-      setUser(user.data);
-      setPosts(result.data);
-    };
-    fetchData();
-  }, [id]);
-
-  useEffect(() => {
-    you.friends.find((f) => {
-      if (Number(f) === Number(id)) {
+    dispatch(getUserById(id));
+    user.friends.find((friend) => {
+      if (Number(friend) === Number(id)) {
         setFriend(true);
       }
     });
+  }, [dispatch, id, user.friends]);
+
+  useEffect(() => {
     posts.find((post) => {
-      console.log(hasPosts);
-      if (Number(post.user.id) === Number(id)) {
+      if (Number(post.user) === Number(id)) {
         setHasPosts(true);
       }
     });
-  }, [hasPosts, id, posts, you.friends]);
+  }, [id, posts]);
 
-  const addFriend = () => {
+  const switchFriend = () => {
     if (!friend) {
-      fetch(endpoint + "users/" + you.id, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...you,
-          friends: [...you.friends, user.id],
-        }),
-      });
-      dispatch(
-        changeData({
-          ...you,
-          friends: [...you.friends, user.id],
-        })
-      );
+      dispatch(changeData({ ...user, friends: [...user.friends, id] }));
       setFriend(true);
     } else {
-      fetch(endpoint + "users/" + you.id, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...you,
-          friends: you.friends.filter((f) => Number(f) !== Number(id)),
-        }),
-      });
-      dispatch(
-        changeData({
-          ...you,
-          friends: you.friends.filter((f) => Number(f) !== Number(id)),
-        })
-      );
+      const friends = user.friends.filter((friend) => friend !== id);
+      dispatch(changeData({ ...user, friends }));
       setFriend(false);
     }
   };
+
   return (
     <>
       <ProfileRouter />
@@ -89,19 +55,19 @@ const UserPage = () => {
           <div className="profile__info">
             <div className="profile__bio">
               <div className="profile__avatar">
-                {user.avatar ? (
-                  <img src={user.avatar} alt="avatar" className="avatar yes" />
-                ) : (
-                  <img src={defAvatar} alt="avatar" className="avatar" />
-                )}
+                <img src={user.avatar} alt="avatar" className="avatar" />
               </div>
               <div className="profile__personalData">
                 <div className="profile__name">
-                  {user.name ? user.name : <h3>He doesn't have a nickname</h3>}
+                  {userById?.name ? (
+                    userById?.name
+                  ) : (
+                    <h3>He doesn't have a nickname</h3>
+                  )}
                 </div>
                 <div className="profile__email">{user.email}</div>
                 <div className="profile__description">{user.description}</div>
-                <button className="profile__follow" onClick={addFriend}>
+                <button className="profile__follow" onClick={switchFriend}>
                   {friend ? "Unfollow" : "Follow"}
                 </button>
               </div>
@@ -112,7 +78,7 @@ const UserPage = () => {
               <div className="profile__posts">
                 <div className="profile__posts_grid">
                   {posts.map((post) => {
-                    if (Number(post.user.id) === Number(id)) {
+                    if (Number(post.user) === Number(id)) {
                       return (
                         <div className="grid__item" key={post.id}>
                           <Link to={"/posts/" + post.id}>
@@ -124,7 +90,7 @@ const UserPage = () => {
                               />
                             </div>
                             <div className="post__userName">
-                              {post.user.name}
+                              {userById.name}
                             </div>
                             <div className="post__title">{post.title}</div>
                           </Link>

@@ -13,8 +13,8 @@ import UserPage from './pages/homeworkReg/userPage';
 import {useSelector} from 'react-redux';
 
 const Router = () => {
-  const user = useSelector((state) => state.user)
-  const users = useSelector((state) => state.users)
+  const {user} = useSelector((state) => state.user)
+
   return (
     <BrowserRouter>
         <Routes>
@@ -23,8 +23,8 @@ const Router = () => {
                 <>
                   <Route path="/create" element={<CreatePostPage />} />
                   <Route path="/posts/:id" element={<OnePostPage />} />
-                  <Route path="/friends" element={<UsersPage users={user.friends} friends={true}/>} />
-                  <Route path="/users" element={<UsersPage users={users} friends={false} />} />
+                  <Route path="/friends" element={<UsersPage friendsPage={true}/>} />
+                  <Route path="/users" element={<UsersPage />} />
                   <Route path="/users/:id" element={<UserPage />} />
                   <Route path="/feed" element={<FeedPage />} />
                   <Route path="/settings" element={<SettingsPage />} />

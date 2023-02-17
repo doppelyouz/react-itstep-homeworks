@@ -1,35 +1,38 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-import avatar from "../../../images/defAvatar.jpg";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 import { signOut } from "../../../store/userSlice";
+import { getPosts } from "../../../store/postsSlice";
 
-import { useSelector, useDispatch } from "react-redux";
 import ProfileRouter from "../../../components/homeworkReg/profileRouter";
 
 import "./ProfilePage.scss";
-import usePagination from "@mui/material/usePagination/usePagination";
-
-const endpoint = "http://localhost:3001/";
 
 const ProfilePage = () => {
-  const user = useSelector((state) => state.user);
+  const {user} = useSelector(state => state.user)
+  const {posts} = useSelector(state => state.posts)
+
+  const [havePosts, setHavePosts] = useState(false);
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    posts.find((post) => {
+      if (Number(post.user) === Number(user.id)) {
+        setHavePosts(true);
+      }
+    });
+  }, [posts, user.id])
 
   const signOutFunc = () => {
     dispatch(signOut());
   };
 
-  const [posts, setPosts] = useState([]);
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(endpoint + "posts");
-      setPosts(result.data);
-    };
-    fetchData();
-  }, []);
+    dispatch(getPosts());
+  }, [dispatch]);
 
   return (
     <>
@@ -39,11 +42,7 @@ const ProfilePage = () => {
           <div className="profile__info">
             <div className="profile__bio">
               <div className="profile__avatar">
-                {user?.avatar ? (
-                  <img src={user.avatar} alt="avatar" className="avatar yes" />
-                ) : (
-                  <img src={avatar} alt="avatar" className="avatar" />
-                )}
+                  <img src={user.avatar} alt="avatar" className="avatar" />
               </div>
               <div className="profile__personalData">
                 <div className="profile__name">
@@ -62,31 +61,31 @@ const ProfilePage = () => {
               </button>
             </div>
           </div>
-          {posts.length <= 0 || (
+          {
+          havePosts && (
             <>
               <div className="profile__posts">
                 <div className="profile__posts_grid">
-                  {posts.map((post) => {
-                    if (post.user.id === user.id) {
-                      return (
-                        <div className="grid__item">
-                          <Link to={"/posts/" + post.id} key={post.id}>
-                            <div className="postImg">
-                              <img
-                                src={post.img}
-                                alt="postImage"
-                                className="fill"
-                              />
-                            </div>
-                            <div className="post__userName">
-                              {post.user.name}
-                            </div>
-                            <div className="post__title">{post.title}</div>
-                          </Link>
-                        </div>
-                      );
-                    }
-                  })}
+                  {
+                    posts.map((post) => {
+                      if (Number(post.user) === Number(user.id)) {
+                        return (
+                          <div className="grid__item" key={post.id}>
+                            <Link to={"/posts/" + post.id}>
+                              <div className="postImg">
+                                <img
+                                  src={post.img}
+                                  alt="postImage"
+                                  className="fill"
+                                />
+                              </div>
+                              <div className="post__title">{post.title}</div>
+                            </Link>
+                          </div>
+                        );
+                      }
+                    })
+                  }
                 </div>
               </div>
               <div className="profile__pagination">

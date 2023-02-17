@@ -1,44 +1,50 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import ProfileRouter from "../../../components/homeworkReg/profileRouter";
 import User from "../../../components/homeworkReg/user";
+import { getUsers } from "../../../store/userSlice";
 
 import s from "./usersPage.module.scss";
 
-const UsersPage = ({ users, friends }) => {
-  const user = useSelector((state) => state.user);
-  const usersAll = useSelector((state) => state.users);
-  const howManyFriends = users.length <= 0;
+const UsersPage = ({friendsPage}) => {
+  const {user, users} = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const [friends, setFriends] = useState([]);
+  
+  const howManyFriends = friends.length <= 0;
+
+  useEffect(() => {
+    dispatch(getUsers);
+    const friends = user.friends.map(friend => users.find(user => Number(user.id) === Number(friend)));
+    setFriends(friends);
+  }, [dispatch, user.friends, users]);
   return (
     <>
       <ProfileRouter />
       <div className={s.users}>
         <div className={s.container}>
-          <div className={s.users__title}>{friends ? "Friends" : "Users"}</div>
-          {howManyFriends || (
+          <div className={s.users__title}>{friendsPage ? "Friends" : "Users"}</div>
+          {(howManyFriends && friendsPage) || (
             <>
-              {usersAll.length <= 0 || (
+              {users.length <= 0 || (
                 <>
                   <div className={s.users__list}>
-                    {friends
-                      ? usersAll.map((u) =>
-                          users.map((f) =>
-                            Number(f) === Number(u.id) ? (
-                              <div key={f}>
+                    {friendsPage
+                      ? friends.map((u) => (
+                              <div key={u?.id}>
                                   <User
-                                    id={u.id}
-                                    img={u.avatar}
-                                    name={u.name}
-                                    email={u.email}
+                                    id={u?.id}
+                                    img={u?.avatar}
+                                    name={u?.name}
+                                    email={u?.email}
                                   />
                               </div>
-                            ) : null
-                          )
-                        )
+                        ))
                       : users.map((u) => (
                           <div key={u.id}>
-                            {user.id === u.id ? (
+                            {Number(user.id) === Number(u.id) ? (
                               <Link to="/profile">
                                 <User
                                   id={u.id}
