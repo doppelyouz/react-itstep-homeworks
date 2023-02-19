@@ -2,14 +2,12 @@ import React, {useState} from 'react'
 
 import { useSelector, useDispatch } from 'react-redux';
 import { addPost } from '../../../store/postsSlice';
-import { useNavigate } from 'react-router-dom';
 
 import ProfileRouter from '../../../components/homeworkReg/profileRouter';
 
 import s from './createPostPage.module.scss';
 
 const CreatePostPage = () => {
-  const navigate = useNavigate();
 
   const {user} = useSelector(state => state.user);
     
@@ -19,6 +17,7 @@ const CreatePostPage = () => {
     img: "",
     title: "",
     text: "",
+    userName: user.name,
     user: user.id
   });
 

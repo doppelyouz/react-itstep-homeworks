@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import Posts from "../../../components/homeworkReg/posts/Posts";
 
 import ProfileRouter from "../../../components/homeworkReg/profileRouter";
 
@@ -11,14 +12,26 @@ import s from "./feedPage.module.scss";
 
 const FeedPage = () => {
   const { posts } = useSelector((state) => state.posts);
-  const { users } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(3);
+
+  const lastIndex = currentPage * postsPerPage;
+  const firstIndex = lastIndex - postsPerPage;
+  const currentPosts = posts.slice(firstIndex, lastIndex);
+
+  const disabledNext = Math.ceil(posts.length / 3) > currentPage;
+  const disabledPrev = currentPage > 1;
 
   useEffect(() => {
     dispatch(getPosts());
     dispatch(getUsers());
   }, [dispatch]);
+
+  const prevPage = () => setCurrentPage(prev => prev - 1);
+  const nextPage = () => setCurrentPage(prev => prev + 1);
 
   return (
     <>
@@ -30,41 +43,12 @@ const FeedPage = () => {
             <button className={s.feed__add}>Add new post</button>
           </Link>
           {
-          posts.length <= 0 || (
+            posts.length <= 0 || (
             <>
-              <div className={s.feed__posts}>
-                <ul className={s.feed__posts_grid}>
-                  {
-                    posts.map((post) => {
-                      const {name} = users.find(user => {
-                        if(Number(user.id) === Number(post.user)) {
-                          return user; 
-                        }
-                      })
-                      
-                      return <div className={s.grid__item} key={post.id}>
-                        <Link to={"/posts/" + post.id}>
-                          <div className={s.postImg}>
-                            <img
-                              src={post.img}
-                              alt="postImage"
-                              className="fill"
-                            />
-                          </div>
-                          <div className={s.post__userName}>
-                            {
-                              name
-                            }
-                          </div>
-                          <div className={s.post__title}>{post.title}</div>
-                        </Link>
-                      </div>
-                    })}
-                </ul>
-              </div>
+              <Posts posts={currentPosts}/>
               <div className={s.feed__pagination}>
-                <button>Prev</button>
-                <button>Next</button>
+                <button style={{opacity: !disabledPrev ? 0.4: 1}} onClick={prevPage} disabled={!disabledPrev}>Prev</button>
+                <button style={{opacity: !disabledNext ? 0.4: 1}} onClick={nextPage} disabled={!disabledNext}>Next</button>
               </div>
             </>
           )}

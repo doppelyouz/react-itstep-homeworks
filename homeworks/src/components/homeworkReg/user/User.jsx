@@ -22,13 +22,13 @@ const User = ({ id, img, name, email }) => {
 
   const switchFriend = () => {
     if (!friend) {
-      dispatch(changeData({ ...user, friends: [...user.friends, id] }));
+      dispatch(changeData({ ...user, friends: [...user.friends, Number(id)] }));
       setFriend(true);
     } else {
       dispatch(
         changeData({
           ...user,
-          friends: user.friends.filter((friend) => friend !== id),
+          friends: user.friends.filter((friend) => friend !== Number(id)),
         })
       );
       setFriend(false);
