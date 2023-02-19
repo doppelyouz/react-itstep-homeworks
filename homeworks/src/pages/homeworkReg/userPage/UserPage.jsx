@@ -41,8 +41,12 @@ const UserPage = () => {
       dispatch(changeData({ ...user, friends: [...user.friends, id] }));
       setFriend(true);
     } else {
-      const friends = user.friends.filter((friend) => friend !== id);
-      dispatch(changeData({ ...user, friends }));
+      dispatch(
+        changeData({
+          ...user,
+          friends: user.friends.filter((friend) => friend !== id),
+        })
+      );
       setFriend(false);
     }
   };

@@ -2,8 +2,8 @@
   "posts": [
     {
       "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/1200px-Angular_full_color_logo.svg.png",
-      "title": "4",
-      "text": "4",
+      "title": "54444",
+      "text": "5444",
       "user": 1,
       "id": 2
     },
@@ -20,7 +20,9 @@
       "email": "1",
       "password": "1",
       "avatar": "/static/media/defAvatar.b64c88cbd5bac46288d6.jpg",
-      "friends": [],
+      "friends": [
+        3
+      ],
       "id": 1,
       "name": "4",
       "description": "44444444444"

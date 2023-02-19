@@ -20,6 +20,8 @@ const UsersPage = ({friendsPage}) => {
     const friends = user.friends.map(friend => users.find(user => Number(user.id) === Number(friend)));
     setFriends(friends);
   }, [dispatch, user.friends, users]);
+
+
   return (
     <>
       <ProfileRouter />
@@ -42,9 +44,10 @@ const UsersPage = ({friendsPage}) => {
                                   />
                               </div>
                         ))
-                      : users.map((u) => (
+                      : users.map(u => (
                           <div key={u.id}>
-                            {Number(user.id) === Number(u.id) ? (
+                            {
+                            Number(user.id) === Number(u.id) ? (
                               <Link to="/profile">
                                 <User
                                   id={u.id}
@@ -60,7 +63,8 @@ const UsersPage = ({friendsPage}) => {
                                   name={u.name}
                                   email={u.email}
                                 />
-                            )}
+                            )
+                            }
                           </div>
                         ))}
                   </div>
