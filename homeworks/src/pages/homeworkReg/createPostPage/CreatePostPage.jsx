@@ -17,7 +17,6 @@ const CreatePostPage = () => {
     img: "",
     title: "",
     text: "",
-    userName: user.name,
     user: user.id
   });
 
